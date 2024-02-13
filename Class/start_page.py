@@ -4,7 +4,7 @@ import datetime  # Importing the datetime module to work with dates and times
 class StartPage(tk.Tk):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self):  # Defining the constructor
         super().__init__()  # Calling the constructor of the parent class
-        self.title("Projet Discord")  # Setting the title of the window
+        self.title("Accueil")  # Setting the title of the window
         self.geometry("750x900")  # Setting the size of the window
         self.resizable(width=False, height=False)  # Making the window non-resizable
         self.configure(bg="darkblue")  # Setting the background color of the window
