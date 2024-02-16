@@ -2,7 +2,7 @@ import tkinter as tk
 from login_page import LoginPage
 from create_account_page import CreateAccountPage
 from chat_page import ChatPage
-from notfication_page import NotificationPage
+from testDiscordTkinter.notification_page import NotificationPage
 
 class Application(tk.Tk):
     def __init__(self):
