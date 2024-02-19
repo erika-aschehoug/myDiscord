@@ -1,4 +1,5 @@
 from Db import Db
+from Session import Session
 
 class Room:
     def __init__(self):
@@ -35,3 +36,7 @@ class Room:
     def get_voice_rooms(self):
         query = "SELECT * FROM chat_room WERE canal_type = voice"
         return self.db.fetch(query)
+    
+    def access_room(self, roomId):
+        if Session.get_current_user() in self.get_users(roomId) or self.get_users(roomId) == []:
+            return True
