@@ -5,7 +5,8 @@ class Room:
     def __init__(self):
         self.db = Db(host="localhost", user="root", password="root", database="db_discord")
 
-    def persmissions(self, id, roomId):
+    def persmission(self, roomId):
+        id = Session.get_current_user
         query = "SELECT * FROM permissions WHERE id_affiliate_user = %s"
         values = (id,)
         permissions = self.db.fetch(query, values)
@@ -37,6 +38,3 @@ class Room:
         query = "SELECT * FROM chat_room WERE canal_type = voice"
         return self.db.fetch(query)
     
-    def access_room(self, roomId):
-        if Session.get_current_user() in self.get_users(roomId) or self.get_users(roomId) == []:
-            return True
