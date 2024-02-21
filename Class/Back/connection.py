@@ -3,13 +3,13 @@ from User import User
 from Session import Session
 import bcrypt
 
-class connection(User):
+class Connection(User):
     def __init__(self):
         User.__init__(self)
         self.db = Db(host='localhost', user='root', password='root', db='db_discord')
 
     def check_mail(self, mail): # check if the mail is already in the database
-        query = "SELECT mail FROM user"
+        query = "SELECT mail FROM users"
         list_mail = self.db.fetch(query)
         if mail in list_mail:
             return True
