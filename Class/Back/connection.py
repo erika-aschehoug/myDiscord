@@ -3,7 +3,7 @@ from User import User
 from Session import Session
 import bcrypt
 
-class connection(User):
+class Connection(User):
     def __init__(self):
         User.__init__(self)
         self.db = Db(host='localhost', user='root', password='root', db='db_discord')

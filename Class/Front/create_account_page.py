@@ -1,22 +1,22 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
 
-class CreatAccountPage(tk.Tk):  # Creating a class StartPage which inherits from tk.Tk
-    def __init__(self):  # Defining the constructor
-        super().__init__()  # Calling the constructor of the parent class
-        self.title("Création de compte")  # Setting the title of the window
-        self.geometry("750x900")  # Setting the size of the window
-        self.resizable(width=False, height=False)  # Making the window non-resizable
-        self.configure(bg="darkblue")  # Setting the background color of the window
+class CreateAccountPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
+    def __init__(self, master=None):  # Defining the constructor
+        super().__init__(master)  # Calling the constructor of the parent class
+        self.master.title("Création de compte")  # Setting the title of the window
+        self.master.geometry("750x900")  # Setting the size of the window
+        self.master.resizable(width=False, height=False)  # Making the window non-resizable
+        self.master.configure(bg="darkblue")  # Setting the background color of the window
 
         # Creating and configuring the time label
-        self.time_label = tk.Label(self, bg="darkblue", fg="white")
+        self.time_label = tk.Label(self.master, bg="darkblue", fg="white")
         self.time_label.pack()
         self.time_label.config(font=("Agency FB", 40))
         self.time_label.place(x=645, y=20)
 
         # Creating and configuring the date label
-        self.date_label = tk.Label(self, bg="darkblue", fg="white")
+        self.date_label = tk.Label(self.master, bg="darkblue", fg="white")
         self.date_label.pack()
         self.date_label.config(font=("Agency FB", 25, "italic"))
         self.date_label.place(x=605, y=80)
@@ -24,7 +24,7 @@ class CreatAccountPage(tk.Tk):  # Creating a class StartPage which inherits from
         self.update_time()  # Calling the update_time method to display the current time and date
         
         # Create a frame for the login fields
-        self.login_frame = tk.Frame(self, bg="cornflowerblue", width=300, height=200)
+        self.login_frame = tk.Frame(self.master, bg="cornflowerblue", width=300, height=200)
         self.login_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         # Create and place the name label and entry field
@@ -69,7 +69,7 @@ class CreatAccountPage(tk.Tk):  # Creating a class StartPage which inherits from
 
     def go_home(self):
         # Code to go back to the home page
-        pass
+        self.master.show_start_page()
 
     def update_time(self):  # Method to update the time and date
         current_time = datetime.datetime.now().strftime("%H:%M")  # Getting the current time
@@ -96,5 +96,5 @@ class CreatAccountPage(tk.Tk):  # Creating a class StartPage which inherits from
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
 if __name__ == "__main__":  # If the script is run directly
-    app = CreatAccountPage()  # Create an instance of the StartPage class
+    app = CreateAccountPage()  # Create an instance of the StartPage class
     app.mainloop()  # Start the main event loop
