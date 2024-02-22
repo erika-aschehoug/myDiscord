@@ -4,19 +4,26 @@ import datetime  # Importing the datetime module to work with dates and times
 class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
+        self.create_widget()
+
+    
+    def create_widget(self):
+        frame = tk.Frame(master=self, bg="darkblue", width=750, height=900)
+        frame.pack()
+
         self.master.title("Connexion")  # Setting the title of the window
         # self.master.geometry("750x900")  # Setting the size of the window
-        # self.masterresizable(width=False, height=False)  # Making the window non-resizable
-        self.master.configure(bg="darkblue")  # Setting the background color of the window
+        # self.master.resizable(width=False, height=False)  # Making the window non-resizable
+        # self.configure(bg="darkblue")  # Setting the background color of the window
 
         # Creating and configuring the time label
-        self.time_label = tk.Label(self.master, bg="darkblue", fg="white")
+        self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.time_label.pack()
         self.time_label.config(font=("Agency FB", 40))
         self.time_label.place(x=645, y=20)
 
         # Creating and configuring the date label
-        self.date_label = tk.Label(self.master, bg="darkblue", fg="white")
+        self.date_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.date_label.pack()
         self.date_label.config(font=("Agency FB", 25, "italic"))
         self.date_label.place(x=605, y=80)
@@ -24,7 +31,7 @@ class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         self.update_time()  # Calling the update_time method to display the current time and date
         
         # Create a frame for the login fields
-        self.login_frame = tk.Frame(self.master, bg="cornflowerblue", width=300, height=200)
+        self.login_frame = tk.Frame(master=frame, bg="cornflowerblue", width=300, height=200)
         self.login_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         # Create and place the email label and entry field
@@ -55,7 +62,7 @@ class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         # Code to create the account
         mail = self.email_entry.get()
         password = self.password_entry.get()
-        if self.login(mail, password):
+        if self.master.login(mail, password):
             print("connection réussi")
         else:
             print("connection refusée")
@@ -88,8 +95,3 @@ class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         self.time_label.config(text=current_time)  # Updating the time label
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
-if __name__ == "__main__":  # If the script is run directly
-    root = tk.Tk()  # Create an instance of Tk
-    app = LoginPage(root)  # Pass root as master to LoginPage
-    app.pack()  # Use pack() instead of grid() since LoginPage is a Frame
-    root.mainloop()  # Start the main event loop

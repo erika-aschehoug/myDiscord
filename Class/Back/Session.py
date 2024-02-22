@@ -1,8 +1,8 @@
-from Db import Db
+from Class.Back.Db import Db
 
 class Session:
     def __init__(self):
-        self.db = Db(host='localhost', user='root', password='root', db='db_discord')
+        self.db = Db(host='localhost', user='root', password='root', database='db_discord')
         self.current_user_id = None
 
     def login(self, user_id):

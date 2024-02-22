@@ -4,31 +4,38 @@ import datetime  # Importing the datetime module to work with dates and times
 class StartPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
+
+        self.create_widget()
+
+    def create_widget(self):
+        frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
+        frame.pack()
+
         self.master.title("Accueil")  # Setting the title of the window
-        self.master.geometry("750x900")  # Setting the size of the window
-        self.master.resizable(width=False, height=False)  # Making the window non-resizable
-        self.master.configure(bg="darkblue")  # Setting the background color of the window
+        # self.master.geometry("750x900")  # Setting the size of the window
+        # self.master.resizable(width=False, height=False)  # Making the window non-resizable
+        # self.master.configure(bg="darkblue")  # Setting the background color of the window
 
         # Creating and configuring the time label
-        self.time_label = tk.Label(self.master, bg="darkblue", fg="white")
+        self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.time_label.pack()
         self.time_label.config(font=("Agency FB", 40))
         self.time_label.place(x=645, y=20)
 
         # Creating and configuring the date label
-        self.date_label = tk.Label(self.master, bg="darkblue", fg="white")
+        self.date_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.date_label.pack()
         self.date_label.config(font=("Agency FB", 25, "italic"))
         self.date_label.place(x=605, y=80)
 
         # Creating and configuring the connection button
-        self.button_connexion = tk.Button(self.master, text="Connexion", bg="cornflowerblue", fg="white", width=35, command=self.master.show_login_page)
+        self.button_connexion = tk.Button(master=frame, text="Connexion", bg="cornflowerblue", fg="white", width=35, command=self.master.show_login_page)
         self.button_connexion.pack()
         self.button_connexion.config(font=("Agency FB", 20, "italic")) 
         self.button_connexion.place(x=210, y=390)
 
         # Creating and configuring the account creation button
-        self.button_creation = tk.Button(self.master, text="Création de compte", bg="cornflowerblue", fg="white", width=35, command=self.master.show_create_account_page)
+        self.button_creation = tk.Button(master=frame, text="Création de compte", bg="cornflowerblue", fg="white", width=35, command=self.master.show_create_account_page)
         self.button_creation.pack()
         self.button_creation.config(font=("Agency FB", 20, "italic"))
         self.button_creation.place(x=210, y=460)
@@ -50,6 +57,7 @@ class StartPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
             current_time = current_time.replace(" ", ":")  # Replace the space with a colon
         self.time_label.config(text=current_time)  # Updating the time label
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
+
     def hide(self):
         self.pack_forget()
 

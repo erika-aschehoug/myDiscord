@@ -4,19 +4,26 @@ import datetime  # Importing the datetime module to work with dates and times
 class CreateAccountPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
+        self.create_widget()
+
+    def create_widget(self):
+        frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
+        frame.pack()
+
         self.master.title("Création de compte")  # Setting the title of the window
-        self.master.geometry("750x900")  # Setting the size of the window
-        self.master.resizable(width=False, height=False)  # Making the window non-resizable
-        self.master.configure(bg="darkblue")  # Setting the background color of the window
+        # self.master.geometry("750x900")  # Setting the size of the window
+        # self.master.resizable(width=False, height=False)  # Making the window non-resizable
+        # self.master.configure(bg="darkblue")  # Setting the background color of the window
+        
 
         # Creating and configuring the time label
-        self.time_label = tk.Label(self.master, bg="darkblue", fg="white")
+        self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.time_label.pack()
         self.time_label.config(font=("Agency FB", 40))
         self.time_label.place(x=645, y=20)
 
         # Creating and configuring the date label
-        self.date_label = tk.Label(self.master, bg="darkblue", fg="white")
+        self.date_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.date_label.pack()
         self.date_label.config(font=("Agency FB", 25, "italic"))
         self.date_label.place(x=605, y=80)
@@ -24,7 +31,7 @@ class CreateAccountPage(tk.Frame):  # Creating a class StartPage which inherits 
         self.update_time()  # Calling the update_time method to display the current time and date
         
         # Create a frame for the login fields
-        self.login_frame = tk.Frame(self.master, bg="cornflowerblue", width=300, height=200)
+        self.login_frame = tk.Frame(master=frame, bg="cornflowerblue", width=300, height=200)
         self.login_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         # Create and place the name label and entry field

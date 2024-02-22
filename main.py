@@ -42,8 +42,8 @@ class Application(tk.Tk):
         return self.show_page(CreateAccountPage)
     
     def login(self, mail, password):
-        return Connection.login(mail, password)
-
+        connection = Connection()
+        return connection.login(mail, password)
 
 if __name__ == "__main__":
     app = Application()

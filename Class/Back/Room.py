@@ -1,5 +1,5 @@
-from Db import Db
-from Session import Session
+from Class.Back.Db import Db
+from Class.Back.Session import Session
 
 class Room:
     def __init__(self):

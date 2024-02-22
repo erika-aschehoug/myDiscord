@@ -1,8 +1,8 @@
-from Db import Db
+from Class.Back.Db import Db
 
 class Post:
     def __init__(self):
-        self.db = Db(host='localhost', user='root', password='root', db='db_discord')
+        self.db = Db(host='localhost', user='root', password='root', database='db_discord')
 
     def send_post(self, user_id, content, affiliate_chanel_id):
         query = "INSERT INTO posts (body, user_id, id_affiliate_chanel) VALUES (%s, %s, %s)"
