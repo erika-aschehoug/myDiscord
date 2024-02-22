@@ -76,6 +76,7 @@ class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         current_date = datetime.datetime.now().strftime("%d/%m/%Y")  # Getting the current date
         self.time_label.config(text=current_time)  # Updating the time label
         self.date_label.config(text=current_date)  # Updating the date label
+        self.after(1000, self.update_time)  # Calling the update_time method after 1 second
         self.toggle_colon()  # Calling the toggle_colon method to blink the colon in the time
     
     def toggle_password(self):

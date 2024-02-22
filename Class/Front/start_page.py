@@ -40,13 +40,14 @@ class StartPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         self.button_creation.config(font=("Agency FB", 20, "italic"))
         self.button_creation.place(x=210, y=460)
 
-        self.update_time()  # Calling the update_time method to display the current time and date
+        self.update_time()  # Calling the update_time method to update the time and date
 
     def update_time(self):  # Method to update the time and date
         current_time = datetime.datetime.now().strftime("%H:%M")  # Getting the current time
         current_date = datetime.datetime.now().strftime("%d/%m/%Y")  # Getting the current date
         self.time_label.config(text=current_time)  # Updating the time label
         self.date_label.config(text=current_date)  # Updating the date label
+        self.after(1000, self.update_time)  # Calling the update_time method after 1 second
         self.toggle_colon()  # Calling the toggle_colon method to blink the colon in the time
 
     def toggle_colon(self):  # Method to blink the colon in the time
