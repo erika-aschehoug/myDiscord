@@ -26,7 +26,7 @@ class StartPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         self.date_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.date_label.pack()
         self.date_label.config(font=("Agency FB", 25, "italic"))
-        self.date_label.place(x=605, y=80)
+        self.date_label.place(x=600, y=80)
 
         # Creating and configuring the connection button
         self.button_connexion = tk.Button(master=frame, text="Connexion", bg="cornflowerblue", fg="white", width=35, command=self.master.show_login_page)

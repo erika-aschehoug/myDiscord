@@ -26,7 +26,7 @@ class CreateAccountPage(tk.Frame):  # Creating a class StartPage which inherits 
         self.date_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.date_label.pack()
         self.date_label.config(font=("Agency FB", 25, "italic"))
-        self.date_label.place(x=605, y=80)
+        self.date_label.place(x=600, y=80)
 
         self.update_time()  # Calling the update_time method to display the current time and date
         
