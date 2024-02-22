@@ -10,7 +10,7 @@ class User:
         self.db.execute(query, values)
     
     def get_user(self, email):
-        query = "SELECT * FROM users WHERE mail = %s"
+        query = "SELECT * FROM users WHERE email = %s"
         values = (email,)
         return self.db.fetch(query, values)
     
