@@ -1,7 +1,7 @@
 from Class.Back.Db import Db
 from Class.Back.User import User
 from Class.Back.Session import Session
-import bcrypt
+import hashlib
 
 class Connection(User):
     def __init__(self):
@@ -17,12 +17,14 @@ class Connection(User):
             return False
         
     def verify_password(self, password, hashed_password): # verify if the password is correct
-        return bcrypt.checkpw(password.encode(), hashed_password.encode())
+        converted = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        return converted == hashed_password
     
     def login(self, mail, password): # login the user
         user = self.get_user(mail)
-        if user and self.verify_password(password, user['password']):
-            Session.login(user['id']) # get the user id
+        print(user)
+        if user and self.verify_password(password, user[0][4]):
+            #Session.login(user['id']) # get the user id
             return True
         else:
             return False

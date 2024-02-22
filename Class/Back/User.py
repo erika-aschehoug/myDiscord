@@ -13,7 +13,7 @@ class User:
         
         hashed_password= sha256_hash(password)  #hash password before insert in data base     
 
-        query = "INSERT INTO users (name, first_name, mail, password) VALUES (%s, %s, %s, %s)"  # The query to execute
+        query = "INSERT INTO users (username, user_first_name, mail, passwd) VALUES (%s, %s, %s, %s)"  # The query to execute
         values = (name, firstName, email, hashed_password)  # The values to insert
         self.db.execute(query, values)
     
