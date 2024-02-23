@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import font
-from PIL import Image, ImageTk  # Importer les modules nécessaires pour manipuler les images
+from PIL import Image, ImageTk  # import module to manipulate picture
 
 class VoiceChat(tk.Frame):        # window initialisation
     def __init__(self, master=None):
@@ -13,14 +13,6 @@ class VoiceChat(tk.Frame):        # window initialisation
 
         #menu
         custom_font = font.Font(family="Bombardier", size=15, weight="normal")
-
-        #multiple choice menu
-        self.menu_list = tk.Listbox(self.master, selectmode=tk.MULTIPLE, bg="grey", fg="white", font=custom_font)
-        self.menu_list.insert(1, "Chat Vocal public")
-        self.menu_list.insert(2, "Chat Vocal privé")
-        self.menu_list.insert(3, "Chat message public")
-        self.menu_list.insert(4, "Chat message privé")
-        self.menu_list.place(relx=0, rely=0, anchor=tk.NW)
 
         #add a block in center of window
         self.center_block= tk.Frame(self.master, bg="grey", width=300, height=300)
@@ -38,10 +30,21 @@ class VoiceChat(tk.Frame):        # window initialisation
         self.round_button = tk.Canvas(self.center_block, width=100, height=100, bg="grey", highlightthickness=0)
         self.round_button.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.round_button.create_oval(0, 0, 100, 100, fill="cornflowerblue")
-        self.round_button.create_text(50, 50, font=("Bombardier", 12))
         self.round_button.create_image(50, 50, image=photo)
         self.round_button.image = photo  # Garder une référence à l'image pour éviter qu'elle ne soit supprimée par le garbage collector
 
+        # Add four buttons that fill the entire height of the window
+        button1 = tk.Button(self.master, text="Chat vocal privé", bg="cornflowerblue", fg="white", font=custom_font, width=20)
+        button1.pack(fill=tk.Y, expand=True, anchor=tk.W)
+
+        button2 = tk.Button(self.master, text="Chat vocal public", bg="cornflowerblue", fg="white", font=custom_font, width=20)
+        button2.pack(fill=tk.Y, expand=True, anchor=tk.W)
+
+        button3 = tk.Button(self.master, text="Chat message public", bg="cornflowerblue", fg="white", font=custom_font, width=20)
+        button3.pack(fill=tk.Y, expand=True, anchor=tk.W)
+
+        button4 = tk.Button(self.master, text="Chat message privé", bg="cornflowerblue", fg="white", font=custom_font, width=20)
+        button4.pack(fill=tk.Y, expand=True, anchor=tk.W)
 
 if __name__ == "__main__":
     root=tk.Tk()
