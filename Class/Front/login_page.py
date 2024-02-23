@@ -58,14 +58,21 @@ class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         self.create_account_button = tk.Button(self.login_frame, text="Connexion", bg="darkblue", fg="white", font=("Agency FB", 18, "italic"), command=self.connection)
         self.create_account_button.grid(row=4, column=1, columnspan=2, sticky='ew', padx=(5, 25), pady=(0,10))
 
+        # Create and place the error of entry or connection label
+        self.error_label = tk.Label(self.login_frame, text="", bg="cornflowerblue", fg="darkred", font=("Agency FB", 25))
+        self.error_label.grid(row=5, column=0, columnspan=3, sticky='ew', padx=(25, 25), pady=(0,10))
+        
+        
+
+    # Test the error of entry and connection
     def connection(self):
-        # # Code to create the account
-        # mail = self.email_entry.get()
-        # password = self.password_entry.get()
-        # if self.master.login(mail, password):
-        #     print("connection réussi")
-        # else:
-        #     print("connection refusée")
+        # Code to create the account
+        mail = self.email_entry.get()
+        password = self.password_entry.get()
+        if self.master.login(mail, password):
+            self.error_label.config(text="Erreur de saisie")
+        else:
+            self.error_label.config(text="Erreur de connexion")
         self.master.show_home_page()
 
     def go_home(self):
