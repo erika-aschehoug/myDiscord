@@ -2,8 +2,9 @@ import tkinter as tk
 from Class.Front.start_page import StartPage
 from Class.Front.login_page import LoginPage
 from Class.Front.create_account_page import CreateAccountPage
+from Class.Front.home_page import HomePage
 from Class.Back.Connection import Connection
-#from home_page import HomePage
+
 #from notification_page import NotificationPage
 #from public_voice_chat_page import PublicVoiceChatPage
 #from private_voice_chat_page import PrivateVoiceChatPage
@@ -40,10 +41,14 @@ class Application(tk.Tk):
 
     def show_create_account_page(self):
         return self.show_page(CreateAccountPage)
-    
+
+    def show_home_page(self):
+        return self.show_page(HomePage)
+
     def login(self, mail, password):
         connection = Connection()
         return connection.login(mail, password)
+
 
 if __name__ == "__main__":
     app = Application()

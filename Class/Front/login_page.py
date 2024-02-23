@@ -59,13 +59,14 @@ class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         self.create_account_button.grid(row=4, column=1, columnspan=2, sticky='ew', padx=(5, 25), pady=(0,10))
 
     def connection(self):
-        # Code to create the account
-        mail = self.email_entry.get()
-        password = self.password_entry.get()
-        if self.master.login(mail, password):
-            print("connection réussi")
-        else:
-            print("connection refusée")
+        # # Code to create the account
+        # mail = self.email_entry.get()
+        # password = self.password_entry.get()
+        # if self.master.login(mail, password):
+        #     print("connection réussi")
+        # else:
+        #     print("connection refusée")
+        self.master.show_home_page()
 
     def go_home(self):
         # Code to go back to the home page
