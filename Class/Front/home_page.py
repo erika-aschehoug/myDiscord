@@ -12,9 +12,9 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
         frame.pack()
 
         self.master.title("Home")  # Setting the title of the window
-        self.master.geometry("750x900")  # Setting the size of the window
-        self.master.resizable(width=False, height=False)  # Making the window non-resizable
-        self.master.configure(bg="darkblue")  # Setting the background color of the window
+        # self.master.geometry("750x900")  # Setting the size of the window
+        # self.master.resizable(width=False, height=False)  # Making the window non-resizable
+        # self.master.configure(bg="darkblue")  # Setting the background color of the window
 
         #picture loading and resizing
         self.private_message_chat_icon = tk.PhotoImage(file="Class/Front/Pictures/private_message_chat_icon.png")
@@ -73,7 +73,13 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
         self.private_text_chat_button.config(font=("Agency FB", 20, "italic"), relief="groove")
         self.private_text_chat_button.place(x=110, y=575)
 
-
+        # Creating and configuring the deconnection button
+        self.deconnection_button = tk.Button(master=frame, text="Déconnexion", bg="cornflowerblue", fg="white", width=20, height=1)
+        self.deconnection_button.pack()
+        self.deconnection_button.config(font=("Agency FB", 20, "italic"), relief="groove")
+        self.deconnection_button.place(x=480, y=780)
+        # Adding the logic to return to the start page when the deconnection button is clicked
+        self.deconnection_button["command"] = self.master.show_start_page
 
         # Creating and configuring the time label
         self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
