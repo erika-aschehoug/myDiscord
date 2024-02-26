@@ -66,6 +66,8 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
         self.public_text_chat_button.pack()
         self.public_text_chat_button.config(font=("Agency FB", 20, "italic"), relief="groove")
         self.public_text_chat_button.place(x=110, y=485)
+        # Adding the logic to show the public text chat page when the public text chat button is clicked
+        self.public_text_chat_button["command"] = self.master.show_public_text_chat_page
 
         # Creating and configuring the private text chat button
         self.private_text_chat_button = tk.Button(master=frame, text="Salon Message Privé", bg="RoyalBlue4", fg="white", width=20, height=1)
