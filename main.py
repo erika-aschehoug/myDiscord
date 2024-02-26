@@ -4,6 +4,7 @@ from Class.Front.login_page import LoginPage
 from Class.Front.create_account_page import CreateAccountPage
 from Class.Front.home_page import HomePage
 from Class.Back.Connection import Connection
+from Class.Front.public_text_chat_page import PublicTextChatPage
 
 #from notification_page import NotificationPage
 #from public_voice_chat_page import PublicVoiceChatPage
@@ -44,6 +45,10 @@ class Application(tk.Tk):
 
     def show_home_page(self):
         return self.show_page(HomePage)
+    
+    def show_public_text_chat_page(self):
+        return self.show_page(PublicTextChatPage)
+        
 
     def login(self, mail, password):
         connection = Connection()
