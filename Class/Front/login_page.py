@@ -62,10 +62,7 @@ class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         # Code to create the account
         mail = self.email_entry.get()
         password = self.password_entry.get()
-        if self.master.login(mail, password):
-            print("connection réussi")
-        else:
-            print("connection refusée")
+        self.master.get_login_variables(mail, password)
 
     def go_home(self):
         # Code to go back to the home page

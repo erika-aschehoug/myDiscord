@@ -77,7 +77,7 @@ class CreateAccountPage(tk.Frame):  # Creating a class StartPage which inherits 
         email = self.email_entry.get()
         password = self.password_entry.get()
         if name and surname and email and password:
-            self.master.create_account(name, surname, email, password)
+            self.master.get_create_account_variables(name, surname, email, password)
             self.go_home()
         else:
             print("Veuillez remplir tous les champs")

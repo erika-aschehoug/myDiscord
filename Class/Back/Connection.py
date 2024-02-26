@@ -22,9 +22,10 @@ class Connection(User):
     
     def login(self, mail, password): # login the user
         user = self.get_user(mail)
-        print(user)
         if user and self.verify_password(password, user[0][4]):
             #Session.login(user['id']) # get the user id
+            print("connection réussi")
             return True
         else:
+            print("connection échoué")
             return False
