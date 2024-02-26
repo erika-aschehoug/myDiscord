@@ -72,7 +72,16 @@ class CreateAccountPage(tk.Frame):  # Creating a class StartPage which inherits 
 
     def create_account(self):
         # Code to create the account
-        pass
+        name = self.name_entry.get()
+        surname = self.surname_entry.get()
+        email = self.email_entry.get()
+        password = self.password_entry.get()
+        if name and surname and email and password:
+            self.master.get_create_account_variables(name, surname, email, password)
+            self.go_home()
+        else:
+            print("Veuillez remplir tous les champs")
+            
 
     def go_home(self):
         # Code to go back to the home page
