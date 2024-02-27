@@ -77,12 +77,10 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
         self.private_text_chat_button.place(x=110, y=575)
 
         # Creating and configuring the deconnection button
-        self.deconnection_button = tk.Button(master=frame, text="Déconnexion", bg="cornflowerblue", fg="white", width=20, height=1)
+        self.deconnection_button = tk.Button(master=frame, text="Déconnexion", bg="cornflowerblue", fg="white", width=20, height=1, command=self.deconnection)
         self.deconnection_button.pack()
         self.deconnection_button.config(font=("Agency FB", 20, "italic"), relief="groove")
         self.deconnection_button.place(x=480, y=780)
-        # Adding the logic to return to the start page when the deconnection button is clicked
-        self.deconnection_button["command"] = self.master.show_start_page
 
         # Creating and configuring the time label
         self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
@@ -98,6 +96,10 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
 
 
         self.update_time()  # Calling the update_time method to update the time and date
+
+    def deconnection(self):  # Method to return to the start page
+        self.master.reset_user_info()  # Calling the reset method of the master attribute
+        self.master.show_start_page() # Calling the show_home_page method of the master attribute
 
     def update_time(self):  # Method to update the time and date
         current_time = datetime.datetime.now().strftime("%H:%M")  # Getting the current time

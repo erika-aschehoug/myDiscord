@@ -5,7 +5,6 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
 
-        print(self.master.firstname, self.master.username, self.master.user_Id, self.master.user_mail)
         self.create_widget()
         
         # #Testing the add_message method
@@ -109,7 +108,6 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
     def deconnection(self):  # Method to return to the start page
-        self.master.reset_user_info()  # Calling the reset method of the master attribute
         self.master.show_home_page() # Calling the show_home_page method of the master attribute
 
     def add_message(self, message, message_type): # Method to add a message to the display area
