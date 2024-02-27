@@ -1,19 +1,48 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
+import mysql.connector  # Importing the mysql.connector module to connect to the MySQL database
+
 
 class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
 
+        print(self.master.firstname, self.master.username, self.master.user_Id, self.master.user_mail)
+       
         self.create_widget()
+    
+    #     self.fetch_messages_from_db() # Calling the fetch_messages_from_db method to fetch the messages from the database
+    # def fetch_messages_from_db(self): # Method to fetch the messages from the database
+    #     db_connection = mysql.connector.connect(
+    #         host="localhost",
+    #         user="root",
+    #         passwd="root",
+    #         database="db_discord"
+    #      )  # Connecting to the database
+    #     query = "SELECT * FROM posts ORDER BY id"  # Query to fetch the messages from the database
+    #     cursor = db_connection.cursor()  # Creating a cursor object
+    #     cursor.execute(query)  # Executing the query
+    #     messages = cursor.fetchall()  # Fetching the messages from the database
+    #     for message in messages:  # Iterating through the messages
+    #         message_id = message[0]  # Getting the message ID
+    #         message_content = message[1]  # Getting the message content
+    #         message_sender = message[2]  # Getting the message sender
+    #         message_chanel = message[3]  # Getting the message chanel
+    #         if message_chanel == "public":  # If the message chanel is public
+    #             if message_sender == self.master.username:  # If the message sender is the current user
+    #                 self.add_message(message_content, "sent")  # Adding the message to the display area
+    #             else:  # If the message sender is not the current user
+    #                 self.add_message(message_content, "received")  # Adding the message to the display area
+    #     db_connection.close()  # Closing the database connection
         
-        # #Testing the add_message method
-        self.add_message("Utilisateur X s'est déconnecté", "disconnection")
-        self.add_message("Ceci est un message envoyé", "sent")
-        self.add_message("Ceci est un message envoyé", "sent")
-        self.add_message("Ceci est un message reçu", "received")
-        self.add_message("Utilisateur X s'est connecté", "connection")
-        self.add_message("Ceci est un message reçu", "received")
+        # # #Testing the add_message method
+        # self.add_message("Utilisateur X s'est déconnecté", "disconnection")
+        # self.add_message("Ceci est un message envoyé", "sent")
+        # self.add_message("Ceci est un message envoyé", "sent")
+        # self.add_message("Ceci est un message reçu", "received")
+        self.add_message("s'est connecté au chat", "connection")
+        self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1)
+        # self.add_message("Ceci est un message reçu", "received")
 
     def set_names(self, username, userfirstname):
         self.username = username
@@ -108,7 +137,8 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
     def deconnection(self):  # Method to return to the start page
-        self.master.show_home_page() # Calling the show_home_page method of the master attribute
+        # self.master.reset_user_info()  # Calling the reset method of the master attribute
+        self.master.show_home_page()  # Calling the show_start_page method of the master attribute
 
     def add_message(self, message, message_type): # Method to add a message to the display area
         current_time = datetime.datetime.now().strftime("%H:%M:%S  \n%d/%m/%Y")  # Getting the current time
@@ -118,7 +148,8 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         elif message_type == "received":
             self.message_area.insert("end", f"{current_time}\n - Autre: {message}\n", ("received", "left")) # adding the message to the display area
         elif message_type == "connection":
-            self.message_area.insert("end", f"{current_time}\n - {message}\n", ("connection", "center")) # adding the message to the display area
+            full_name = f"{self.master.firstname} {self.master.username}" # Getting the full name of the user
+            self.message_area.insert("end", f"{current_time}\n {full_name} {message}\n", ("connection", "center")) # adding the message to the display area
         else:  # disconnection
             self.message_area.insert("end", f"{current_time}\n - {message}\n", ("disconnection", "center")) # adding the message to the display area
         self.message_area.config(state="disabled")  # deasable the edition
