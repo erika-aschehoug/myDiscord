@@ -110,7 +110,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
 
     def deconnection(self):  # Method to return to the start page
         self.master.reset_user_info()  # Calling the reset method of the master attribute
-        self.master.show_start_page()  # Calling the show_start_page method of the master attribute
+        self.master.show_home_page() # Calling the show_home_page method of the master attribute
 
     def add_message(self, message, message_type): # Method to add a message to the display area
         current_time = datetime.datetime.now().strftime("%H:%M:%S  \n%d/%m/%Y")  # Getting the current time
