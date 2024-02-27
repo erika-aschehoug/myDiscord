@@ -26,25 +26,13 @@ class VoiceChat(tk.Frame):        # window initialisation
         image = image.resize((50, 50))  
         photo = ImageTk.PhotoImage(image)
 
-        #add round button 
-        self.round_button = tk.Canvas(self.center_block, width=100, height=100, bg="grey", highlightthickness=0)
-        self.round_button.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-        self.round_button.create_oval(0, 0, 100, 100, fill="cornflowerblue")
-        self.round_button.create_image(50, 50, image=photo)
-        self.round_button.image = photo  # Garder une référence à l'image pour éviter qu'elle ne soit supprimée par le garbage collector
+        #add record button
+        button1 = tk.Button(self.master, text="Start / Stop record ...", bg="cornflowerblue", fg="white", font=custom_font, width=20)
+        button1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-        # Add four buttons that fill the entire height of the window
-        button1 = tk.Button(self.master, text="Chat vocal privé", bg="cornflowerblue", fg="white", font=custom_font, width=20)
-        button1.pack(fill=tk.Y, expand=True, anchor=tk.W)
-
-        button2 = tk.Button(self.master, text="Chat vocal public", bg="cornflowerblue", fg="white", font=custom_font, width=20)
-        button2.pack(fill=tk.Y, expand=True, anchor=tk.W)
-
-        button3 = tk.Button(self.master, text="Chat message public", bg="cornflowerblue", fg="white", font=custom_font, width=20)
-        button3.pack(fill=tk.Y, expand=True, anchor=tk.W)
-
-        button4 = tk.Button(self.master, text="Chat message privé", bg="cornflowerblue", fg="white", font=custom_font, width=20)
-        button4.pack(fill=tk.Y, expand=True, anchor=tk.W)
+        #add a button send 
+        button2 = tk.Button(self.center_block, text="Send", bg="cornflowerblue", fg="white", font=custom_font, width=15)
+        button2.place(relx=1.0, rely=1.0, anchor=tk.SE)
 
 if __name__ == "__main__":
     root=tk.Tk()

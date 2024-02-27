@@ -1,4 +1,4 @@
-import socket
+import socket 
 import pyaudio
 import threading
 import tkinter as tk
@@ -41,7 +41,7 @@ start_button.pack()
 
 # Server socket creation
 server_host = '127.0.0.1'  # Server IP address
-server_port = 12345         # Server listening port
+server_port = 5000         # Server listening port
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server.bind((server_host, server_port))
 server.listen(1)  # Maximum number of pending connections
