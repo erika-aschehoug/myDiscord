@@ -135,7 +135,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
             self.add_message(message, "sent")  # Adding the message to the display area
-            self.master.get_message(message, 1)
+            self.master.get_message(message, 1, connection=False) 
 
 if __name__ == "__main__":  # If the script is run directly
     root = tk.Tk()  # Create an instance of the Tk class    

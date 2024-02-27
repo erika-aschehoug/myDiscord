@@ -44,7 +44,8 @@ class Controller:
     def send_post(self):
         content = self.view.message
         chanel = self.view.chanel
-        self.model.send_post(self.user_ID, content, chanel)
+        Connection = self.view.connection
+        self.model.send_post(self.user_ID, content, chanel, connection=False)
 
     def get_post(self, id_room):
         return self.model.get_post(id_room)
