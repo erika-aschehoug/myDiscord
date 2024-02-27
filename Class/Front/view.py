@@ -24,7 +24,7 @@ class View(tk.Tk):
 
     def get_user_info(self):
         self.user_Id, self.username, self.firstname, self.user_mail = self.controller.get_user_info()
-        
+
     def reset_user_info(self):
         self.user_Id = None
         self.username = None
@@ -73,3 +73,8 @@ class View(tk.Tk):
     
     def get_create_account_variables(self, name, firstname, email, password):
         return self.controller.get_create_account_variables(name, firstname, email, password)
+    
+    def get_message(self,message, chanel):
+        self.message = message
+        self.chanel = chanel
+        self.controller.send_post()

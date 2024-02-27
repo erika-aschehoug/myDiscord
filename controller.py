@@ -41,10 +41,14 @@ class Controller:
         self.view.show_login_page()
 
     # Method of public_text_chat_page
-    def send_post(self, affiliate_chanel_id):
-        content = self.view.pubclic_text_chat_page.message.get()
-        self.model.send_post(self.user_ID, content, affiliate_chanel_id)
-        
+    def send_post(self):
+        print(self.user_ID)
+        content = self.view.message
+        print(content)
+        chanel = self.view.chanel
+        print(chanel)
+        self.model.send_post(self.user_ID, content, chanel)
+
 if __name__ == "__main__":
     controller = Controller()
     controller.main()
