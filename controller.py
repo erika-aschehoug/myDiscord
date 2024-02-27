@@ -29,7 +29,6 @@ class Controller:
         acces = self.model.login(mail, password)
         if acces:
             info = self.model.user_info(mail)
-            print(info)
             self.user_info(info)
             self.view.show_home_page()
         else:
@@ -41,6 +40,11 @@ class Controller:
         self.model.create_account(name, firstname, email, password)
         self.view.show_login_page()
 
+    # Method of public_text_chat_page
+    def send_post(self, affiliate_chanel_id):
+        content = self.view.pubclic_text_chat_page.message.get()
+        self.model.send_post(self.user_ID, content, affiliate_chanel_id)
+        
 if __name__ == "__main__":
     controller = Controller()
     controller.main()

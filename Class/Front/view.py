@@ -20,18 +20,17 @@ class View(tk.Tk):
     def main(self):
         self.mainloop()
 
+    # This method is used to get the user info and reset the user info
+
     def get_user_info(self):
         self.user_Id, self.username, self.firstname, self.user_mail = self.controller.get_user_info()
-
-    def user_info(self):
-        return self.user_Id, self.username, self.firstname, self.user_mail
-    
+        
     def reset_user_info(self):
         self.user_Id = None
         self.username = None
         self.firstname = None
         self.user_mail = None
-        self.controller.reste_user_info()
+        self.controller.reset_user_info()
 
 
     # This method is used to show a page
@@ -60,6 +59,9 @@ class View(tk.Tk):
     
     def show_public_text_chat_page(self):
         return self.show_page(PublicTextChatPage)
+    
+    def send_post(self, affiliate_chanel_id):
+        return self.controller.send_post(affiliate_chanel_id)
 
     # get variables for controller
 

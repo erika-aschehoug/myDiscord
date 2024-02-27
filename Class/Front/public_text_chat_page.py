@@ -5,6 +5,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
 
+        print(self.master.firstname, self.master.username, self.master.user_Id, self.master.user_mail)
         self.create_widget()
         
         # #Testing the add_message method
@@ -22,12 +23,10 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.master.title("Salon Chat Publique")  # Setting the title of the window
 
         # Creating and configuring the return button
-        self.deconnection_button = tk.Button(master=frame, text="Quitter le chat", bg="cornflowerblue", fg="white", width=20, height=1)
+        self.deconnection_button = tk.Button(master=frame, text="Quitter le chat", bg="cornflowerblue", fg="white", width=20, height=1, command=self.deconnection)
         self.deconnection_button.pack()
         self.deconnection_button.config(font=("Agency FB", 20, "italic"), relief="groove")
         self.deconnection_button.place(x=480, y=780)
-        # Adding the logic to return to the start page when the deconnection button is clicked
-        self.deconnection_button["command"] = self.deconnection()
 
         # Creating a label around the public text chat name
         self.chat_name_label_frame = tk.Frame(master=frame, bg="cornflowerblue", width=290, height=60, relief="groove")
@@ -104,7 +103,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
     def deconnection(self):  # Method to return to the start page
-        self.master. reset()  # Calling the reset method of the master attribute
+        self.master.reset_user_info()  # Calling the reset method of the master attribute
         self.master.show_start_page()  # Calling the show_start_page method of the master attribute
 
     def add_message(self, message, message_type): # Method to add a message to the display area
@@ -131,6 +130,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
             self.add_message(message, "sent")  # Adding the message to the display area
+            #self.master.send_post(1)
 
 if __name__ == "__main__":  # If the script is run directly
     root = tk.Tk()  # Create an instance of the Tk class    
