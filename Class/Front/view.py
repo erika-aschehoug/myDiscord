@@ -45,6 +45,7 @@ class View(tk.Tk):
         return self.show_page(HomePage)
     
     def show_public_text_chat_page(self):
+        self.controller.set_names()
         return self.show_page(PublicTextChatPage)
 
     # get variables for controller
@@ -57,3 +58,7 @@ class View(tk.Tk):
     
     def get_create_account_variables(self, name, firstname, email, password):
         return self.controller.get_create_account_variables(name, firstname, email, password)
+
+    # Set variables from controller
+    def set_names(self, username, user_firstname):
+        return PublicTextChatPage.set_names(self.current_page, username, user_firstname)

@@ -4,7 +4,9 @@ import datetime  # Importing the datetime module to work with dates and times
 class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
-
+        
+        self.userfirstname = None
+        self.username = None
         self.create_widget()
         
         # #Testing the add_message method
@@ -14,6 +16,10 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.add_message("Ceci est un message reçu", "received")
         self.add_message("Utilisateur X s'est connecté", "connection")
         self.add_message("Ceci est un message reçu", "received")
+
+    def set_names(self, username, userfirstname):
+        self.username = username
+        self.userfirstname = userfirstname
 
     def create_widget(self):
         frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
@@ -52,7 +58,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.chat_name_label.place(x=110, y=210)
 
         # Creating and configuring a welcome message with the user's name under the chat name
-        self.welcome_message_label = tk.Label(master=frame, text="  Bienvenue sur le salon de discussion public user x  ", bg="SlateGray4", fg="white")
+        self.welcome_message_label = tk.Label(master=frame, text= f"  Bienvenue sur le salon de discussion public {self.userfirstname} {self.username} ", bg="SlateGray4", fg="white")
         self.welcome_message_label.pack()
         self.welcome_message_label.config(font=("Agency FB", 20, "italic"))
         self.welcome_message_label.place(x=50, y=250)
@@ -72,6 +78,8 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.send_button = tk.Button(master=frame, text="Envoyer",fg="white", bg="RoyalBlue4", command=self.send_message)
         self.send_button.pack()
         self.send_button.place(x=640, y=710)
+
+        self.master.bind("<Return>", self.send_message)  # Binding the Enter key to the send_message method
 
         # Creating and configuring the time label
         self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
@@ -131,7 +139,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_area.tag_configure("connection", foreground="lime green", justify="center") # Configuring the connection message tag
         self.message_area.tag_configure("disconnection", foreground="red3", justify="center") # Configuring the disconnection message tag
     
-    def send_message(self): # Method to send a message
+    def send_message(self, event=None): # Method to send a message
         message = self.message_entry.get("1.0", "end").strip()  # Getting the message from the entry and removing the leading and trailing whitespaces
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
