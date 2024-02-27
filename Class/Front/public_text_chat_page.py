@@ -10,30 +10,6 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         print(self.master.firstname, self.master.username, self.master.user_Id, self.master.user_mail)
        
         self.create_widget()
-    
-    #     self.fetch_messages_from_db() # Calling the fetch_messages_from_db method to fetch the messages from the database
-    # def fetch_messages_from_db(self): # Method to fetch the messages from the database
-    #     db_connection = mysql.connector.connect(
-    #         host="localhost",
-    #         user="root",
-    #         passwd="root",
-    #         database="db_discord"
-    #      )  # Connecting to the database
-    #     query = "SELECT * FROM posts ORDER BY id"  # Query to fetch the messages from the database
-    #     cursor = db_connection.cursor()  # Creating a cursor object
-    #     cursor.execute(query)  # Executing the query
-    #     messages = cursor.fetchall()  # Fetching the messages from the database
-    #     for message in messages:  # Iterating through the messages
-    #         message_id = message[0]  # Getting the message ID
-    #         message_content = message[1]  # Getting the message content
-    #         message_sender = message[2]  # Getting the message sender
-    #         message_chanel = message[3]  # Getting the message chanel
-    #         if message_chanel == "public":  # If the message chanel is public
-    #             if message_sender == self.master.username:  # If the message sender is the current user
-    #                 self.add_message(message_content, "sent")  # Adding the message to the display area
-    #             else:  # If the message sender is not the current user
-    #                 self.add_message(message_content, "received")  # Adding the message to the display area
-    #     db_connection.close()  # Closing the database connection
         
         # # #Testing the add_message method
         # self.add_message("Utilisateur X s'est déconnecté", "disconnection")
