@@ -42,12 +42,12 @@ class Controller:
 
     # Method of public_text_chat_page
     def send_post(self):
-        print(self.user_ID)
         content = self.view.message
-        print(content)
         chanel = self.view.chanel
-        print(chanel)
         self.model.send_post(self.user_ID, content, chanel)
+
+    def get_post(self, id_room):
+        return self.model.get_post(id_room)
 
 if __name__ == "__main__":
     controller = Controller()

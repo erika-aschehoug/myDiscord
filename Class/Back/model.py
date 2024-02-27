@@ -24,5 +24,8 @@ class Model:
     # method for public text chat
     def send_post(self, user_id, content, affiliate_chanel_id):
         return self.post.send_post(user_id, content, affiliate_chanel_id)
+    
+    def get_post(self, id_room):
+        return self.post.get_post(id_room)
         
     

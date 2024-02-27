@@ -7,8 +7,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
 
-        print(self.master.firstname, self.master.username, self.master.user_Id, self.master.user_mail)
-       
+        self.posts = self.master.get_post(1)
         self.create_widget()
         
         # # #Testing the add_message method
