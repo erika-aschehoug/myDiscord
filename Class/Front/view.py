@@ -74,9 +74,10 @@ class View(tk.Tk):
     def get_create_account_variables(self, name, firstname, email, password):
         return self.controller.get_create_account_variables(name, firstname, email, password)
     
-    def get_message(self,message, chanel, connection=False):
+    def get_message(self,message, chanel, date, connection):
         self.message = message
         self.chanel = chanel
+        self.date = date
         self.connection = connection
         self.controller.send_post()
 

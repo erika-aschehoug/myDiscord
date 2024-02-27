@@ -22,8 +22,8 @@ class Model:
         return self.user.get_user(info)
     
     # method for public text chat
-    def send_post(self, user_id, content, affiliate_chanel_id, connection=False):
-        return self.post.send_post(user_id, content, affiliate_chanel_id)
+    def send_post(self, user_id, content, affiliate_chanel_id, date, connection):
+        return self.post.send_post(user_id, content, affiliate_chanel_id, date, connection)
     
     def get_post(self, id_room):
         return self.post.get_post(id_room)

@@ -132,10 +132,11 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
     
     def send_message(self, event=None): # Method to send a message
         message = self.message_entry.get("1.0", "end").strip()  # Getting the message from the entry and removing the leading and trailing whitespaces
+        current_time = datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y")  # Getting the current time
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
             self.add_message(message, "sent")  # Adding the message to the display area
-            self.master.get_message(message, 1, connection=False) 
+            self.master.get_message(message, 1, current_time, False) 
 
 if __name__ == "__main__":  # If the script is run directly
     root = tk.Tk()  # Create an instance of the Tk class    
