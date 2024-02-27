@@ -20,6 +20,20 @@ class View(tk.Tk):
     def main(self):
         self.mainloop()
 
+    def get_user_info(self):
+        self.user_Id, self.username, self.firstname, self.user_mail = self.controller.get_user_info()
+
+    def user_info(self):
+        return self.user_Id, self.username, self.firstname, self.user_mail
+    
+    def reset_user_info(self):
+        self.user_Id = None
+        self.username = None
+        self.firstname = None
+        self.user_mail = None
+        self.controller.reste_user_info()
+
+
     # This method is used to show a page
 
     def show_page(self, pagename):

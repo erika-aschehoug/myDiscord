@@ -15,11 +15,21 @@ class Controller:
         self.user_firstname = info[0][2]
         self.user_mail = info[0][3]
 
+    def get_user_info(self):
+        return self.user_ID, self.username, self.user_firstname, self.user_mail
+    
+    def reset_user_info(self):
+        self.user_ID = None
+        self.username = None
+        self.user_firstname = None
+        self.user_mail = None
+
     # Methof of login_page
     def get_login_variables(self, mail, password):
         acces = self.model.login(mail, password)
         if acces:
             info = self.model.user_info(mail)
+            print(info)
             self.user_info(info)
             self.view.show_home_page()
         else:

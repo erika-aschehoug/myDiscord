@@ -20,9 +20,6 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         frame.pack()
 
         self.master.title("Salon Chat Publique")  # Setting the title of the window
-        # self.master.geometry("750x900")  # Setting the size of the window
-        # self.master.resizable(width=False, height=False)  # Making the window non-resizable
-        # self.master.configure(bg="darkblue")  # Setting the background color of the window
 
         # Creating and configuring the return button
         self.deconnection_button = tk.Button(master=frame, text="Quitter le chat", bg="cornflowerblue", fg="white", width=20, height=1)
@@ -30,7 +27,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.deconnection_button.config(font=("Agency FB", 20, "italic"), relief="groove")
         self.deconnection_button.place(x=480, y=780)
         # Adding the logic to return to the start page when the deconnection button is clicked
-        self.deconnection_button["command"] = self.master.show_home_page
+        self.deconnection_button["command"] = self.deconnection()
 
         # Creating a label around the public text chat name
         self.chat_name_label_frame = tk.Frame(master=frame, bg="cornflowerblue", width=290, height=60, relief="groove")
@@ -52,7 +49,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.chat_name_label.place(x=110, y=210)
 
         # Creating and configuring a welcome message with the user's name under the chat name
-        self.welcome_message_label = tk.Label(master=frame, text="  Bienvenue sur le salon de discussion public user x  ", bg="SlateGray4", fg="white")
+        self.welcome_message_label = tk.Label(master=frame, text=f"  Bienvenue sur le salon de discussion public {self.master.firstname} {self.master.username}  ", bg="SlateGray4", fg="white")
         self.welcome_message_label.pack()
         self.welcome_message_label.config(font=("Agency FB", 20, "italic"))
         self.welcome_message_label.place(x=50, y=250)
@@ -106,11 +103,9 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.time_label.config(text=current_time)  # Updating the time label
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
-    def hide(self): # Method to hide the page
-        self.pack_forget() # Hiding the page
-
-    def show(self): # Method to show the page   
-        self.pack(fill="both", expand=True) # Displaying the page
+    def deconnection(self):  # Method to return to the start page
+        self.master. reset()  # Calling the reset method of the master attribute
+        self.master.show_start_page()  # Calling the show_start_page method of the master attribute
 
     def add_message(self, message, message_type): # Method to add a message to the display area
         current_time = datetime.datetime.now().strftime("%H:%M:%S  \n%d/%m/%Y")  # Getting the current time

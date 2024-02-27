@@ -5,6 +5,7 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
 
+        self.master.get_user_info()
         self.create_widget()
 
     def create_widget(self):
