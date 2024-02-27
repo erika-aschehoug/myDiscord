@@ -81,3 +81,6 @@ class View(tk.Tk):
 
     def set_names(self, username, user_firstname):
         return PublicTextChatPage.set_names(self.current_page, username, user_firstname)
+    
+    def get_post(self, id_room):
+        return self.controller.get_post(id_room)
