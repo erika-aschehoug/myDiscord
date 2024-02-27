@@ -78,3 +78,6 @@ class View(tk.Tk):
         self.message = message
         self.chanel = chanel
         self.controller.send_post()
+
+    def set_names(self, username, user_firstname):
+        return PublicTextChatPage.set_names(self.current_page, username, user_firstname)

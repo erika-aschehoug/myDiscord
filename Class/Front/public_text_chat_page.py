@@ -16,6 +16,10 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.add_message("Utilisateur X s'est connecté", "connection")
         self.add_message("Ceci est un message reçu", "received")
 
+    def set_names(self, username, userfirstname):
+        self.username = username
+        self.userfirstname = userfirstname
+
     def create_widget(self):
         frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
         frame.pack()
@@ -68,6 +72,8 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.send_button = tk.Button(master=frame, text="Envoyer",fg="white", bg="RoyalBlue4", command=self.send_message)
         self.send_button.pack()
         self.send_button.place(x=640, y=710)
+
+        self.master.bind("<Return>", self.send_message)  # Binding the Enter key to the send_message method
 
         # Creating and configuring the time label
         self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
@@ -125,7 +131,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_area.tag_configure("connection", foreground="lime green", justify="center") # Configuring the connection message tag
         self.message_area.tag_configure("disconnection", foreground="red3", justify="center") # Configuring the disconnection message tag
     
-    def send_message(self): # Method to send a message
+    def send_message(self, event=None): # Method to send a message
         message = self.message_entry.get("1.0", "end").strip()  # Getting the message from the entry and removing the leading and trailing whitespaces
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
