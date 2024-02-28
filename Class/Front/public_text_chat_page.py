@@ -119,14 +119,14 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         current_time = datetime.datetime.now().strftime("%H:%M:%S  \n%d/%m/%Y")  # Getting the current time
         self.message_area.config(state="normal")  # activating the edition
         if message_type == "sent":
-            self.message_area.insert("end", f"{current_time}  \n - {self.master.firstname} : {message}  \n", ("sent", "right")) # adding the message to the display area
+            self.message_area.insert("end", f"{current_time}  \n - {self.master.firstname} : {message}  \n\n", ("sent", "right")) # adding the message to the display area
         elif message_type == "received":
-            self.message_area.insert("end", f"{current_time}\n - Autre: {message}\n", ("received", "left")) # adding the message to the display area
+            self.message_area.insert("end", f"{current_time}\n - Autre: {message}\n\n", ("received", "left")) # adding the message to the display area
         elif message_type == "connection":
             full_name = f"{self.master.firstname} {self.master.username}" # Getting the full name of the user
-            self.message_area.insert("end", f"{current_time}\n {full_name} {message}\n", ("connection", "center")) # adding the message to the display area
+            self.message_area.insert("end", f"{current_time}\n {full_name} {message}\n\n", ("connection", "center")) # adding the message to the display area
         else:  # disconnection
-            self.message_area.insert("end", f"{current_time}\n - {message}\n", ("disconnection", "center")) # adding the message to the display area
+            self.message_area.insert("end", f"{current_time}\n - {message}\n\n", ("disconnection", "center")) # adding the message to the display area
         self.message_area.config(state="disabled")  # deasable the edition
 
         self.message_area.see("end")  # Scroll to the end of the text area
