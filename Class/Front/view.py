@@ -81,12 +81,14 @@ class View(tk.Tk):
         self.connection = connection
         self.disconnection = disconnection
         self.controller.send_post()
-
-    def set_names(self, username, user_firstname):
-        return PublicTextChatPage.set_names(self.current_page, username, user_firstname)
     
+    # method for text chat
+
     def get_post(self, id_room):
         return self.controller.get_post(id_room)
     
     def get_all_users(self):
         return self.controller.get_all_users()
+    
+    def get_author(self, posts_user_id):
+        return self.controller.get_author(posts_user_id)

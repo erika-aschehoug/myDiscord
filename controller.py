@@ -54,6 +54,9 @@ class Controller:
     
     def get_all_users(self):
         return self.model.get_all_users()
+    
+    def get_author(self, posts_user_id):
+        return self.model.get_author(posts_user_id)
 
 if __name__ == "__main__":
     controller = Controller()

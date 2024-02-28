@@ -31,3 +31,6 @@ class Model:
     def get_all_users(self):
         return self.user.get_all_users()
     
+    def get_author(self, posts_user_id):
+        return self.post.get_author(posts_user_id)
+    
