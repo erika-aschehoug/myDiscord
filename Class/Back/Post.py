@@ -20,7 +20,8 @@ class Post:
         return self.db.fetch(query, value)
     
     def get_author(self, post_user_id):
-        query = "SELECT user_first_name FROM users INNER JOIN posts ON users.id = posts.(%s)"
+        query = "SELECT user_first_name FROM users INNER JOIN posts ON users.id = (%s)"
         value = (post_user_id,)
-        return self.db.fetch(query, value)    
+        author = self.db.fetch(query, value)
+        return author[0][0]    
     

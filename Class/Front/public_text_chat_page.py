@@ -10,16 +10,9 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
 
         self.all_users = self.master.get_all_users()
         self.create_widget()
-        
         self.get_message()  # Calling the get_message method to display the messages
-   
-       
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
        
-
-    def set_names(self, username, userfirstname):
-        self.username = username
-        self.userfirstname = userfirstname
 
     def create_widget(self):
         frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
@@ -137,14 +130,15 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
     def get_message(self):  # Method to get the messages
         self.posts = self.master.get_post(1)
         for post in self.posts:
+            author = self.master.get_author(post[2])
             if post[5] == 1:  # If the message is a connection message
-                self.display_message(post[1], "connection", post[4]) # Adding the message to the display area
+                self.display_message(post[1], "connection", post[4], author) # Adding the message to the display area
             elif post[6] == 1:  # If the message is a disconnection message
-                self.display_message(post[1], "disconnection", post[4])
+                self.display_message(post[1], "disconnection", post[4], author)
             elif self.master.user_Id == post[2]:  # If the user is the author of the message
-                self.display_message(post[1], "sent", post[4]) 
+                self.display_message(post[1], "sent", post[4], author) 
             elif self.master.user_Id != post[2]: # If the user is not the author of the message
-                self.display_message(post[1], "received", post[4])
+                self.display_message(post[1], "received", post[4], author)
 
     def send_message(self, event=None): # Method to send a message
         message = self.message_entry.get("1.0", "end").strip()  # Getting the message from the entry and removing the leading and trailing whitespaces
