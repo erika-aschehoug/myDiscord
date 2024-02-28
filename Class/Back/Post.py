@@ -19,4 +19,3 @@ class Post:
         value = (id_post,)
         return self.db.fetch(query, value)
     
-    

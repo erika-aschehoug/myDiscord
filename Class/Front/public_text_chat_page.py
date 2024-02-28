@@ -1,19 +1,19 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
-
+import time  # Importing the time module to work with time
 
 
 class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
 
-        self.posts = self.master.get_post(1)
+
         self.all_users = self.master.get_all_users()
         self.create_widget()
         
-        self.display_messages()  # Calling the display_messages method to display the messages
+        self.get_message()  # Calling the get_message method to display the messages
    
-        self.add_message("s'est connecté au chat", "connection")
+       
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
        
 
@@ -110,13 +110,12 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
     def chat_deconnection(self):  # Method to return to the start page and get the user's info
-        self.add_message("s'est déconnecté du chat", "disconnection")
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est déconnecté du chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), False, True) # Adding the disconnection message to the database
         """ Must add method to get datetime into the database (table notification) and/or update it"""
         self.master.show_home_page()  # Calling the show_start_page method of the master attribute
     
-    def add_message(self, message, message_type): # Method to add a message to the display area
-        current_time = datetime.datetime.now().strftime("%H:%M:%S  \n%d/%m/%Y")  # Getting the current time
+    def display_message(self, message, message_type, datetime): # Method to display a message to the display area
+        current_time = datetime
         self.message_area.config(state="normal")  # activating the edition
         if message_type == "sent":
             self.message_area.insert("end", f"{current_time}  \n - {self.master.firstname} : {message}  \n\n", ("sent", "right")) # adding the message to the display area
@@ -124,7 +123,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
             self.message_area.insert("end", f"{current_time}\n - Autre: {message}\n\n", ("received", "left")) # adding the message to the display area
         elif message_type == "connection":
             full_name = f"{self.master.firstname} {self.master.username}" # Getting the full name of the user
-            self.message_area.insert("end", f"{current_time}\n {full_name} {message}\n\n", ("connection", "center")) # adding the message to the display area
+            self.message_area.insert("end", f"{current_time}\n {message}\n\n", ("connection", "center")) # adding the message to the display area
         else:  # disconnection
             self.message_area.insert("end", f"{current_time}\n - {message}\n\n", ("disconnection", "center")) # adding the message to the display area
         self.message_area.config(state="disabled")  # deasable the edition
@@ -135,23 +134,23 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_area.tag_configure("connection", foreground="lime green", justify="center") # Configuring the connection message tag
         self.message_area.tag_configure("disconnection", foreground="red3", justify="center") # Configuring the disconnection message tag
     
-    def display_messages(self):  # Method to display the messages
+    def get_message(self):  # Method to get the messages
+        self.posts = self.master.get_post(1)
         for post in self.posts:
             if post[5] == 1:  # If the message is a connection message
-                self.add_message(post[1], "connection") # Adding the message to the display area
+                self.display_message(post[1], "connection", post[4]) # Adding the message to the display area
             elif post[6] == 1:  # If the message is a disconnection message
-                self.add_message(post[1], "disconnection")
+                self.display_message(post[1], "disconnection", post[4])
             elif self.master.user_Id == post[2]:  # If the user is the author of the message
-                self.add_message(post[1], "sent") 
+                self.display_message(post[1], "sent", post[4]) 
             elif self.master.user_Id != post[2]: # If the user is not the author of the message
-                self.add_message(post[1], "received")
+                self.display_message(post[1], "received", post[4])
 
     def send_message(self, event=None): # Method to send a message
         message = self.message_entry.get("1.0", "end").strip()  # Getting the message from the entry and removing the leading and trailing whitespaces
         current_time = datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y")  # Getting the current time
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
-            self.add_message(message, "sent")  # Adding the message to the display area
             self.master.get_message(message, 1, current_time, False, False) # Adding the message to the database
 
 if __name__ == "__main__":  # If the script is run directly
