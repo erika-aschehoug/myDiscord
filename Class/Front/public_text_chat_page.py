@@ -1,6 +1,6 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
-import time  # Importing the time module to work with time
+
 
 
 class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
@@ -12,7 +12,6 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.create_widget()
         self.get_message()  # Calling the get_message method to display the messages
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
-       
 
     def create_widget(self):
         frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
@@ -120,8 +119,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         else:  # disconnection
             self.message_area.insert("end", f"{current_time}\n - {message}\n\n", ("disconnection", "center")) # adding the message to the display area
         self.message_area.config(state="disabled")  # deasable the edition
-
-        self.message_area.see("end")  # Scroll to the end of the text area
+        # self.message_area.see("end")  # Scroll to the end of the text area
         self.message_area.tag_configure("sent", foreground="deep sky blue", justify="right") # Configuring the sent message tag
         self.message_area.tag_configure("received", foreground="ivory2", justify="left") # Configuring the received message tag
         self.message_area.tag_configure("connection", foreground="lime green", justify="center") # Configuring the connection message tag
@@ -139,6 +137,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
                 self.display_message(post[1], "sent", post[4], author) 
             elif self.master.user_Id != post[2]: # If the user is not the author of the message
                 self.display_message(post[1], "received", post[4], author)
+        self.after(500, self.get_message) # Calling the get_message method after 500 milliseconds
 
     def send_message(self, event=None): # Method to send a message
         message = self.message_entry.get("1.0", "end").strip()  # Getting the message from the entry and removing the leading and trailing whitespaces
