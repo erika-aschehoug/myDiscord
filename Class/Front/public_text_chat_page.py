@@ -15,11 +15,6 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
    
        
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
-       
-
-    def set_names(self, username, userfirstname):
-        self.username = username
-        self.userfirstname = userfirstname
 
     def create_widget(self):
         frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
