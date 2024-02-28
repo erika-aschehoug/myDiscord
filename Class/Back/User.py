@@ -27,3 +27,7 @@ class User:
         values = (id,)
         return self.db.fetch(query, values)
     
+    def get_all_users(self):
+        query = "SELECT id, username, user_first_name, mail FROM users"
+        return self.db.fetch(query)
+    

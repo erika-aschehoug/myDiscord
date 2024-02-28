@@ -40,7 +40,7 @@ class Controller:
         self.model.create_account(name, firstname, email, password)
         self.view.show_login_page()
 
-    # Method of public_text_chat_page
+    # Method of text_chat_page
     def send_post(self):
         content = self.view.message
         chanel = self.view.chanel
@@ -50,6 +50,9 @@ class Controller:
 
     def get_post(self, id_room):
         return self.model.get_post(id_room)
+    
+    def get_all_users(self):
+        return self.model.get_all_users()
 
 if __name__ == "__main__":
     controller = Controller()

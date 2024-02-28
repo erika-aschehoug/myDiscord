@@ -21,11 +21,14 @@ class Model:
     def user_info(self, info):
         return self.user.get_user(info)
     
-    # method for public text chat
+    # method for text chat
     def send_post(self, user_id, content, affiliate_chanel_id, date, connection):
         return self.post.send_post(user_id, content, affiliate_chanel_id, date, connection)
     
     def get_post(self, id_room):
         return self.post.get_post(id_room)
+    
+    def get_all_users(self):
+        return self.user.get_all_users()
         
     

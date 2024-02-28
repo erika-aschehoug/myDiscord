@@ -86,3 +86,6 @@ class View(tk.Tk):
     
     def get_post(self, id_room):
         return self.controller.get_post(id_room)
+    
+    def get_all_users(self):
+        return self.controller.get_all_users()
