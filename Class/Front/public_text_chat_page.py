@@ -15,6 +15,11 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
    
        
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
+       
+
+    def set_names(self, username, userfirstname):
+        self.username = username
+        self.userfirstname = userfirstname
 
     def create_widget(self):
         frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
@@ -109,13 +114,13 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         """ Must add method to get datetime into the database (table notification) and/or update it"""
         self.master.show_home_page()  # Calling the show_start_page method of the master attribute
     
-    def display_message(self, message, message_type, datetime): # Method to display a message to the display area
+    def display_message(self, message, message_type, datetime, author): # Method to display a message to the display area
         current_time = datetime
         self.message_area.config(state="normal")  # activating the edition
         if message_type == "sent":
-            self.message_area.insert("end", f"{current_time}  \n - {self.master.firstname} : {message}  \n\n", ("sent", "right")) # adding the message to the display area
+            self.message_area.insert("end", f"{current_time}  \n - {author} : {message}  \n\n", ("sent", "right")) # adding the message to the display area
         elif message_type == "received":
-            self.message_area.insert("end", f"{current_time}\n - Autre: {message}\n\n", ("received", "left")) # adding the message to the display area
+            self.message_area.insert("end", f"{current_time}\n - {author} : {message}\n\n", ("received", "left")) # adding the message to the display area
         elif message_type == "connection":
             full_name = f"{self.master.firstname} {self.master.username}" # Getting the full name of the user
             self.message_area.insert("end", f"{current_time}\n {message}\n\n", ("connection", "center")) # adding the message to the display area
