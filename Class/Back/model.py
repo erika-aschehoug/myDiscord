@@ -31,3 +31,8 @@ class Model:
     def get_all_users(self):
         return self.user.get_all_users()
     
+    # method for notification
+
+    def get_notification(self, id_user, datetime, channel):
+        return self.notification.get_notification(id_user, datetime, channel)
+    

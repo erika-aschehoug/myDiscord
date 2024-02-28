@@ -5,6 +5,7 @@ class Controller:
     def __init__(self):
         self.model = Model()
         self.view = View(self)
+        self.get_notification(1, "2024-05-05 12:00:00", 1)
 
     def main(self):
         self.view.main()
@@ -54,6 +55,11 @@ class Controller:
     
     def get_all_users(self):
         return self.model.get_all_users()
+    
+    # Method of notification
+
+    def get_notification(self, id_user, datetime, channel):
+        return self.model.get_notification(id_user, datetime, channel)
 
 if __name__ == "__main__":
     controller = Controller()
