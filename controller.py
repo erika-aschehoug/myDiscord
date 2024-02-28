@@ -45,8 +45,9 @@ class Controller:
         content = self.view.message
         chanel = self.view.chanel
         connection = self.view.connection
+        disconnection = self.view.disconnection
         date = self.view.date
-        self.model.send_post(self.user_ID, content, chanel, date, connection)
+        self.model.send_post(self.user_ID, content, chanel, date, connection, disconnection)
 
     def get_post(self, id_room):
         return self.model.get_post(id_room)

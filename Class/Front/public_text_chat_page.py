@@ -1,6 +1,6 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
-import mysql.connector  # Importing the mysql.connector module to connect to the MySQL database
+
 
 
 class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
@@ -16,7 +16,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         # self.add_message("Ceci est un message envoyé", "sent")
         # self.add_message("Ceci est un message reçu", "received")
         self.add_message("s'est connecté au chat", "connection")
-        self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1)
+        self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
         # self.add_message("Ceci est un message reçu", "received")
 
     def set_names(self, username, userfirstname):
@@ -30,7 +30,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.master.title("Salon Chat Publique")  # Setting the title of the window
 
         # Creating and configuring the return button
-        self.deconnection_button = tk.Button(master=frame, text="Quitter le chat", bg="cornflowerblue", fg="white", width=20, height=1, command=self.deconnection)
+        self.deconnection_button = tk.Button(master=frame, text="Quitter le chat", bg="cornflowerblue", fg="white", width=20, height=1, command=self.chat_deconnection)
         self.deconnection_button.pack()
         self.deconnection_button.config(font=("Agency FB", 20, "italic"), relief="groove")
         self.deconnection_button.place(x=480, y=780)
@@ -111,8 +111,10 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.time_label.config(text=current_time)  # Updating the time label
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
-    def deconnection(self):  # Method to return to the start page
-        # self.master.reset_user_info()  # Calling the reset method of the master attribute
+    def chat_deconnection(self):  # Method to return to the start page
+        self.add_message("s'est déconnecté du chat", "disconnection")
+        self.master.get_message(f"{self.master.firstname} {self.master.username} s'est déconnecté du chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), False, True) # Adding the disconnection message to the database
+        # Logic to get date and time and adding this to the table notification in the database
         self.master.show_home_page()  # Calling the show_start_page method of the master attribute
 
     def add_message(self, message, message_type): # Method to add a message to the display area
@@ -141,7 +143,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
             self.add_message(message, "sent")  # Adding the message to the display area
-            self.master.get_message(message, 1, current_time, False) 
+            self.master.get_message(message, 1, current_time, False, False) # Adding the message to the database
 
 if __name__ == "__main__":  # If the script is run directly
     root = tk.Tk()  # Create an instance of the Tk class    
