@@ -111,12 +111,11 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.time_label.config(text=current_time)  # Updating the time label
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
-    def chat_deconnection(self):  # Method to return to the start page
+    def chat_deconnection(self):  # Method to return to the start page and get the user's info
         self.add_message("s'est déconnecté du chat", "disconnection")
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est déconnecté du chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), False, True) # Adding the disconnection message to the database
-        # Logic to get date and time and adding this to the table notification in the database
+        """ Must add method to get datetime into the database (table notification) and/or update it"""
         self.master.show_home_page()  # Calling the show_start_page method of the master attribute
-
     def add_message(self, message, message_type): # Method to add a message to the display area
         current_time = datetime.datetime.now().strftime("%H:%M:%S  \n%d/%m/%Y")  # Getting the current time
         self.message_area.config(state="normal")  # activating the edition
