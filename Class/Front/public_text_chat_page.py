@@ -7,11 +7,12 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
 
-
-        self.all_users = self.master.get_all_users()
-        self.create_widget()
+        self.count = len(self.master.get_post(1)) # Getting the number of messages in the database
+        self.all_users = self.master.get_all_users() # Getting all the users from the database
+        self.create_widget() # Calling the create_widget method to create the widgets
         self.get_message()  # Calling the get_message method to display the messages
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
+        self.update_message()  # Calling the update_message method to update the messages in the database
 
     def create_widget(self):
         frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
@@ -119,7 +120,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         else:  # disconnection
             self.message_area.insert("end", f"{current_time}\n - {message}\n\n", ("disconnection", "center")) # adding the message to the display area
         self.message_area.config(state="disabled")  # deasable the edition
-        # self.message_area.see("end")  # Scroll to the end of the text area
+        self.message_area.see("end")  # Scroll to the end of the text area
         self.message_area.tag_configure("sent", foreground="deep sky blue", justify="right") # Configuring the sent message tag
         self.message_area.tag_configure("received", foreground="ivory2", justify="left") # Configuring the received message tag
         self.message_area.tag_configure("connection", foreground="lime green", justify="center") # Configuring the connection message tag
@@ -137,7 +138,16 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
                 self.display_message(post[1], "sent", post[4], author) 
             elif self.master.user_Id != post[2]: # If the user is not the author of the message
                 self.display_message(post[1], "received", post[4], author)
-        self.after(500, self.get_message) # Calling the get_message method after 500 milliseconds
+
+    def update_message(self):  # Method to update the messages
+        self.posts = self.master.get_post(1)
+        if len(self.posts) > self.count:
+            self.message_area.config(state="normal")  # activating the edition
+            self.message_area.delete("1.0", "end")
+            self.message_area.config(state="disabled") # deasable the edition
+            self.get_message()
+            self.count = len(self.posts)
+        self.after(500, self.update_message) # Calling the update_message method after 500 milliseconds
 
     def send_message(self, event=None): # Method to send a message
         message = self.message_entry.get("1.0", "end").strip()  # Getting the message from the entry and removing the leading and trailing whitespaces
