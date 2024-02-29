@@ -4,7 +4,7 @@ import os       #make the link between record and current hour of recording
 from datetime import datetime       #to have the precise date and hour of record
 from pydub import AudioSegment
 from pydub.playback import play
-from base64 import b64encode
+# from base64 import b64encode
 
 #save audio
 class AudioRecorder:
