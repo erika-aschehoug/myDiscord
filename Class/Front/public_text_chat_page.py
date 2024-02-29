@@ -1,14 +1,13 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
 import pygame  # Importing the pygame module to work with sounds
-
+# import emoji # Importing the emoji module to work with emojis
 
 class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
         pygame.init()  # Initialize the pygame module
         
-
         self.count = len(self.master.get_post(1)) # Getting the number of messages in the database
         self.all_users = self.master.get_all_users() # Getting all the users from the database
         self.create_widget() # Calling the create_widget method to create the widgets
@@ -65,12 +64,19 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_entry = tk.Text(master=frame, width=53, height=1, font=("Agency FB", 20))
         self.message_entry.pack()
         self.message_entry.place(x=50, y=700)
+        
+        # # Creating and configuring the emoji button
+        # self.emoji_button = tk.Button(master=frame, text=" ... ", bg="DarkBlue", fg="white", command=self.show_emojis, font=(15))
+        # self.emoji_button.pack()
+        # self.emoji_button.place(x=4, y=697)
+        
+        # Creating and configuring the send button
         self.send_button = tk.Button(master=frame, text="Envoyer",fg="white", bg="RoyalBlue4", command=self.send_message)
         self.send_button.pack()
         self.send_button.place(x=640, y=710)
 
         self.master.bind("<Return>", self.send_message)  # Binding the Enter key to the send_message method
-
+ 
         # Creating and configuring the time label
         self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.time_label.pack()
@@ -85,6 +91,14 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
 
 
         self.update_time()  # Calling the update_time method to update the time and date
+
+    # def show_emojis(self):
+    #     self.emoji_window = tk.Toplevel(self)
+    #     self.emoji_window.title("Sélection d'émojis")
+    #     self.emoji_window.geometry("500x500")
+    #     self.emoji_window.resizable(False, False)
+    #     self.emoji_window.config(bg="RoyalBlue4")
+
 
 
     def update_time(self):  # Method to update the time and date
