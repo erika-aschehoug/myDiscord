@@ -5,8 +5,8 @@ class Post:
         self.db = Db(host='localhost', user='root', password='root', database='db_discord')
 
     def send_post(self, user_id, content, affiliate_chanel_id, date, connection=False, disconnection = False):
-        query = "INSERT INTO posts (body, user_id, id_affiliate_chanel, created_at, connection, disconnection) VALUES (%s, %s, %s, %s, %s, %s)"
-        value = (content, user_id, affiliate_chanel_id, date, connection, disconnection)
+        query = "INSERT INTO posts (body, user_id, id_affiliate_chanel, created_at, connection, disconnection) VALUES (%s, %s, %s, now(), %s, %s)"
+        value = (content, user_id, affiliate_chanel_id, connection, disconnection)
         self.db.execute(query, value)
 
     def get_post(self, id_room):
