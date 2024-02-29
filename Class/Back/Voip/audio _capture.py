@@ -1,8 +1,12 @@
-import pyaudio
-import wave
-import os
-from datetime import datetime
+import pyaudio  #capture audio
+import wave     #file format to read audio
+import os       #make the link between record and current hour of recording
+from datetime import datetime       #to have the precise date and hour of record
+from pydub import AudioSegment
+from pydub.playback import play
+from base64 import b64encode
 
+#save audio
 class AudioRecorder:
     def __init__(self, output_folder):
         self.CHUNK = 1024        # Size of audio data chunks (1024 bytes)
@@ -44,14 +48,27 @@ class AudioRecorder:
             wf.setframerate(self.RATE)  # Set the sampling rate
             wf.writeframes(b''.join(frames))  # Write audio frames to the .wav file
             wf.close()  # Close the .wav file
+
             print(f"WAV file {wave_output_filename} written successfully.")
+
         except Exception as e:
             print(f"Error writing WAV file {wave_output_filename}:", e)  # Display an error if writing the .wav file fails
 
     def close(self):
         self.audio.terminate()  # Terminate the PyAudio object
 
+#play audio 
+
+    def audio_player (self,audio_file):
+        try:
+            audio = AudioSegment.from_file(audio_file)
+            play(audio)
+            print(f"Audio {audio_file} played successfully")
+        except Exception as e:
+            print(f"Error playing audio {audio_file}:", e)
+
 if __name__ == "__main__":
     recorder = AudioRecorder(output_folder="C:/Users/user/Desktop/LAPLATEFORME/myDiscord/audio")
-    recorder.record_audio(record_seconds=10)
+    # recorder.record_audio(record_seconds=10)
+    recorder.audio_player("C:/Users/user/Desktop/LAPLATEFORME/myDiscord/Class/Back/Voip/audio/2024-02-28_14-49-23.wav")
     recorder.close()
