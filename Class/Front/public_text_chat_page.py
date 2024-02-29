@@ -1,11 +1,13 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
-
+import pygame  # Importing the pygame module to work with sounds
 
 
 class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
+        pygame.init()  # Initialize the pygame module
+        
 
         self.count = len(self.master.get_post(1)) # Getting the number of messages in the database
         self.all_users = self.master.get_all_users() # Getting all the users from the database
@@ -137,7 +139,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
             elif self.master.user_Id == post[2]:  # If the user is the author of the message
                 self.display_message(post[1], "sent", post[4], author) 
             elif self.master.user_Id != post[2]: # If the user is not the author of the message
-                self.display_message(post[1], "received", post[4], author)
+                self.display_message(post[1], "received", post[4], author)  
 
     def update_message(self):  # Method to update the messages
         self.posts = self.master.get_post(1)
@@ -155,6 +157,17 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
             self.master.get_message(message, 1, current_time, False, False) # Adding the message to the database
+            self.new_message_received = True
+            self.play_received_sound()
+        self.play_sending_sound()
+
+    def play_sending_sound(self): # Method to play the sending sound
+        self.sending_sound = pygame.mixer.Sound("Class/Back/Sounds/sending.mp3") # Loading the sending sound
+        self.sending_sound.play()
+
+    def play_received_sound(self):
+        self.received_sound = pygame.mixer.Sound("Class/Back/Sounds/received.mp3")
+        self.received_sound.play()
 
 if __name__ == "__main__":  # If the script is run directly
     root = tk.Tk()  # Create an instance of the Tk class    
