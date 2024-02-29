@@ -1,7 +1,6 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
 import pygame  # Importing the pygame module to work with sounds
-# import emoji # Importing the emoji module to work with emojis
 
 class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
@@ -59,24 +58,36 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_area.config(font=("Agency FB", 15), state="disabled")
         self.message_area.place(x=50, y=290)
         
-
         # Crate and configure the message entry and the send buttond
         self.message_entry = tk.Text(master=frame, width=53, height=1, font=("Agency FB", 20))
         self.message_entry.pack()
         self.message_entry.place(x=50, y=700)
         
-        # # Creating and configuring the emoji button
-        # self.emoji_button = tk.Button(master=frame, text=" ... ", bg="DarkBlue", fg="white", command=self.show_emojis, font=(15))
-        # self.emoji_button.pack()
-        # self.emoji_button.place(x=4, y=697)
-        
         # Creating and configuring the send button
         self.send_button = tk.Button(master=frame, text="Envoyer",fg="white", bg="RoyalBlue4", command=self.send_message)
         self.send_button.pack()
         self.send_button.place(x=640, y=710)
-
         self.master.bind("<Return>", self.send_message)  # Binding the Enter key to the send_message method
  
+        # Creating and configuring the emoji button
+        emojis = ["😀", "😂", "😍", "😎", "😜", "😡", "😢", "😭", "😱", "🤩", "🥳", "🤔", "🤗", "💖", "👋", "😈", "💩", "🤬", "😻", "💔", "🙊", "🙈", "🙉", "👻"]
+        section_length = len(emojis) // 3 # Getting the length of each section
+        for i in range(section_length): # Looping through the first section of emojis
+            emoji_button = tk.Button(master=frame, text=emojis[i], font=(20), bg="gray71", command=lambda i=i: self.insert_emoji(emojis[i]))
+            emoji_button.pack()
+            emoji_button.place(x=50 + (i * 50), y=750)
+        for i in range(section_length, 2 * section_length): # Looping through the second section of emojis
+            emoji_button = tk.Button(master=frame, text=emojis[i], font=(20), bg="gray71", command=lambda i=i: self.insert_emoji(emojis[i]))
+            emoji_button.pack()
+            emoji_button.place(x=50 + ((i - section_length) * 50), y=800)
+        for i in range(2 * section_length, len(emojis)): # Looping through the third section of emojis
+            emoji_button = tk.Button(master=frame, text=emojis[i], font=(20), bg="gray71", command=lambda i=i: self.insert_emoji(emojis[i]))
+            emoji_button.pack()
+            emoji_button.place(x=50 + ((i - 2 * section_length) * 50), y=850)
+        
+    
+
+
         # Creating and configuring the time label
         self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.time_label.pack()
@@ -88,17 +99,11 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.date_label.pack()
         self.date_label.config(font=("Agency FB", 25, "italic"))
         self.date_label.place(x=600, y=80)
-
-
         self.update_time()  # Calling the update_time method to update the time and date
 
-    # def show_emojis(self):
-    #     self.emoji_window = tk.Toplevel(self)
-    #     self.emoji_window.title("Sélection d'émojis")
-    #     self.emoji_window.geometry("500x500")
-    #     self.emoji_window.resizable(False, False)
-    #     self.emoji_window.config(bg="RoyalBlue4")
 
+    def insert_emoji(self, emoji): # Method to insert an emoji into the message entry
+        self.message_entry.insert("end", emoji)
 
 
     def update_time(self):  # Method to update the time and date
@@ -117,6 +122,25 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
             current_time = current_time.replace(" ", ":")  # Replace the space with a colon
         self.time_label.config(text=current_time)  # Updating the time label
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
+
+    # Method emoji button and selection window
+    def emoji_button(self):
+        self.emoji_button = tk.Button(master=self, text="😀", command=self.emoji_selection)
+        self.emoji_button.pack()
+        self.emoji_button.place(x=50, y=750)
+    
+    def emoji_selection(self):
+        self.emoji_selection = tk.Toplevel(self)
+        self.emoji_selection.title("Sélectionner un emoji")
+        self.emoji_selection.geometry("200x200")
+        self.emoji_selection.resizable(False, False)
+        self.emoji_selection.config(bg="darkblue")
+        self.emoji_selection.iconbitmap("Class/Front/Pictures/emoji.ico")
+        self.emoji_selection.grab_set()
+        self.emoji_selection.focus_set()
+        self.emoji_selection.transient(master=self)
+        self.emoji_selection.mainloop()
+        
 
     def chat_deconnection(self):  # Method to return to the start page and get the user's info
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est déconnecté du chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), False, True) # Adding the disconnection message to the database
@@ -171,7 +195,6 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
             self.master.get_message(message, 1, current_time, False, False) # Adding the message to the database
-            self.new_message_received = True
             self.play_received_sound()
         self.play_sending_sound()
 
