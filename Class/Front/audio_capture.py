@@ -4,6 +4,7 @@ import os       #make the link between record and current hour of recording
 from datetime import datetime       #to have the precise date and hour of record
 from pydub import AudioSegment
 from pydub.playback import play
+import mysql.connector
 # from base64 import b64encode
 
 #save audio
@@ -51,8 +52,30 @@ class AudioRecorder:
 
             print(f"WAV file {wave_output_filename} written successfully.")
 
+            #conversion wav file to blob
+            audio_blob = open(wave_output_filename, "rb").read()
+
+            #insert blob data into db
+            conn = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="root",
+                database="MydiscordDB"
+            )
+
+            cursor= conn.cursor()
+            insert_query = "INSERT INTO audio_records (record_time, audio_blob) VALUES (%s, %s)"
+            record_time = datetime.now()
+            cursor.execute(insert_query, (record_time, audio_blob))
+            conn.commit()
+            cursor.close()
+            conn.close()
+
+            print("Audio blob inserted into the database successfully.")
+
         except Exception as e:
-            print(f"Error writing WAV file {wave_output_filename}:", e)  # Display an error if writing the .wav file fails
+            print(f"Error writing WAV file or inserting into the database:", e)
+
 
     def close(self):
         self.audio.terminate()  # Terminate the PyAudio object
