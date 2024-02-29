@@ -147,7 +147,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
             self.message_area.config(state="disabled") # deasable the edition
             self.get_message()
             self.count = len(self.posts)
-        self.after(500, self.update_message) # Calling the update_message method after 500 milliseconds
+        self.after(50, self.update_message) # Calling the update_message method after 500 milliseconds
 
     def send_message(self, event=None): # Method to send a message
         message = self.message_entry.get("1.0", "end").strip()  # Getting the message from the entry and removing the leading and trailing whitespaces
