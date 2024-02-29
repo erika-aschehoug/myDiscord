@@ -37,25 +37,25 @@ class CreateAccountPage(tk.Frame):  # Creating a class StartPage which inherits 
         # Create and place the name label and entry field
         self.name_label = tk.Label(self.login_frame, text="Nom :", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.name_label.grid(row=0, column=0, sticky='w')
-        self.name_entry = tk.Entry(self.login_frame, font=("Agency FB", 20, "italic"))
+        self.name_entry = tk.Entry(self.login_frame, font=("Agency FB", 20))
         self.name_entry.grid(row=0, column=1, sticky='ew', padx=(0, 25)) 
 
         # Create and place the surname label and entry field
         self.surname_label = tk.Label(self.login_frame, text="Prénom :", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.surname_label.grid(row=1, column=0, sticky='w')
-        self.surname_entry = tk.Entry(self.login_frame, font=("Agency FB", 20, "italic"))
+        self.surname_entry = tk.Entry(self.login_frame, font=("Agency FB", 20))
         self.surname_entry.grid(row=1, column=1, sticky='ew', padx=(0, 25))  
 
         # Create and place the email label and entry field
         self.email_label = tk.Label(self.login_frame, text="Identifiant (mail) : ", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.email_label.grid(row=2, column=0, sticky='w')
-        self.email_entry = tk.Entry(self.login_frame, font=("Agency FB", 20, "italic"))
+        self.email_entry = tk.Entry(self.login_frame, font=("Agency FB", 20))
         self.email_entry.grid(row=2, column=1, sticky='ew', padx=(0, 25))  
 
         # Create and place the password label and entry field
         self.password_label = tk.Label(self.login_frame, text="Mot de passe :", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.password_label.grid(row=3, column=0, sticky='w')
-        self.password_entry = tk.Entry(self.login_frame, show="*", font=("Agency FB", 20, "italic"))
+        self.password_entry = tk.Entry(self.login_frame, show="*", font=("Agency FB", 20))
         self.password_entry.grid(row=3, column=1, sticky='ew', padx=(0, 25))
 
         # Create and place the show password button

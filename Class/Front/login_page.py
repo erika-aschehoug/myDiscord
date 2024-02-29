@@ -37,13 +37,13 @@ class LoginPage(tk.Frame):  # Creating a class StartPage which inherits from tk.
         # Create and place the email label and entry field
         self.email_label = tk.Label(self.login_frame, text="Identifiant (mail) : ", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.email_label.grid(row=2, column=0, sticky='w')
-        self.email_entry = tk.Entry(self.login_frame, font=("Agency FB", 20, "italic"))
+        self.email_entry = tk.Entry(self.login_frame, font=("Agency FB", 20))
         self.email_entry.grid(row=2, column=1, sticky='ew', padx=(0, 25))  
 
         # Create and place the password label and entry field
         self.password_label = tk.Label(self.login_frame, text="Mot de passe :", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.password_label.grid(row=3, column=0, sticky='w')
-        self.password_entry = tk.Entry(self.login_frame, show="*", font=("Agency FB", 20, "italic"))
+        self.password_entry = tk.Entry(self.login_frame, show="*", font=("Agency FB", 20))
         self.password_entry.grid(row=3, column=1, sticky='ew', padx=(0, 25))
 
         # Create and place the show password button
