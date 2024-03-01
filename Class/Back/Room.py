@@ -9,10 +9,13 @@ class Room:
         query = "SELECT * FROM permissions WHERE id_affiliate_user = %s"
         values = (user_id,)
         permissions = self.db.fetch(query, values)
-        print (permissions)
-        if permissions[0][2] == roomId:
-            return True
-        return False
+        try:
+            if permissions[0][2] == roomId:
+                return True
+            else:
+                return False
+        except:
+            return False
     
     def add_user(self, id, roomId):
         query = "INSERT INTO permissions (id_affiliate_user, id_affiliate_canal, admin) VALUES (%s, %s, %s)"
@@ -25,12 +28,17 @@ class Room:
         self.db.execute(query, values)
 
     def get_users(self, roomId):
-        query = "SELECT users.id, users.user_first_name FROM users INNER JOIN permissions ON users.id = permissions.id_affiliate_user WHERE id_affiliate_canal = %s"
+        query = "SELECT users.id, users.username, users.user_first_name, users.mail FROM users INNER JOIN permissions ON users.id = permissions.id_affiliate_user WHERE id_affiliate_canal = %s"
         values = (roomId,)
         return self.db.fetch(query, values)
     
-    def update_admin(self, id, roomId):
+    def update_add_admin(self, id, roomId):
         query = "UPDATE permissions SET admin = 1 WHERE id_affiliate_user = %s AND id_affiliate_canal = %s"
+        values = (id, roomId)
+        self.db.execute(query, values)
+
+    def update_remove_admin(self, id, roomId):
+        query = "UPDATE permissions SET admin = 0 WHERE id_affiliate_user = %s AND id_affiliate_canal = %s"
         values = (id, roomId)
         self.db.execute(query, values)
     
@@ -38,3 +46,8 @@ class Room:
         query = "INSERT INTO permissions (id_affiliate_user, id_affiliate_canal, admin) VALUES (%s, %s, %s)"
         values = (id, roomId, 1)
         self.db.execute(query, values)
+
+    def get_admin(self, roomId):
+        query = "SELECT users.id FROM users INNER JOIN permissions ON users.id = permissions.id_affiliate_user WHERE id_affiliate_canal = %s AND admin = 1"
+        values = (roomId,)
+        return self.db.fetch(query, values)

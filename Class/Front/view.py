@@ -5,7 +5,7 @@ from Class.Front.login_page import LoginPage
 from Class.Front.create_account_page import CreateAccountPage
 from Class.Front.home_page import HomePage
 from Class.Front.public_text_chat_page import PublicTextChatPage
-# from Class.Front.private_text_chat_page import PrivateTextChatPage
+from Class.Front.private_text_chat_page import PrivateTextChatPage
 
 class View(tk.Tk):
     def __init__(self, controller):
@@ -62,11 +62,12 @@ class View(tk.Tk):
     def show_public_text_chat_page(self):
             return self.show_page(PublicTextChatPage)
         
-    # def show_private_text_chat_page(self):
-    #     if self.controller.permission(self.user_Id, 2):
-    #         return self.show_page(PrivateTextChatPage)
-    #     else:
-    #         return messagebox.showerror("Error", "You don't have the permission to access this channel")
+    def show_private_text_chat_page(self):
+        if self.controller.permission(self.user_Id, 2):
+            return self.show_page(PrivateTextChatPage)
+        else:
+            return messagebox.showerror("Error", "You don't have the permission to access this channel")
+    
     
     def send_post(self, affiliate_chanel_id):
         return self.controller.send_post(affiliate_chanel_id)
@@ -117,3 +118,16 @@ class View(tk.Tk):
     
     def get_users(self, roomId):
         return self.controller.get_users(roomId)
+    
+    def get_admin(self, roomId):
+        return self.controller.get_admin(roomId)
+    
+    def add_admin(self, roomId, userId):
+        return self.controller.add_admin(roomId, userId)
+    
+    def update_add_admin(self, roomId, userId):
+        return self.controller.update_add_admin(roomId, userId)
+    
+    def update_remove_admin(self, roomId, userId):
+        return self.controller.update_remove_admin(roomId, userId)
+    

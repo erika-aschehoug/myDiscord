@@ -58,3 +58,17 @@ class Model:
     def get_users(self, roomId):
         return self.room.get_users(roomId)
     
+    def get_admin(self, roomId):
+        return self.room.get_admin(roomId)
+    
+    def add_admin(self, roomId, userId):
+        return self.room.add_admin(roomId, userId)
+    
+    def update_add_admin(self, roomId, userId):
+        return self.room.update_add_admin(roomId, userId)
+    
+    def update_remove_admin(self, roomId, userId):
+        return self.room.update_remove_admin(roomId, userId)
+    
+
+    

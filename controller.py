@@ -78,6 +78,18 @@ class Controller:
     def get_users(self, roomId):
         return self.model.get_users(roomId)
     
+    def get_admin(self, roomId):
+        return self.model.get_admin(roomId)
+    
+    def add_admin(self, roomId, userId):
+        return self.model.add_admin(roomId, userId)
+    
+    def update_add_admin(self, roomId, userId):
+        return self.model.update_add_admin(roomId, userId)
+    
+    def update_remove_admin(self, roomId, userId):
+        return self.model.update_remove_admin(roomId, userId)
+    
 if __name__ == "__main__":
     controller = Controller()
     controller.main()
