@@ -114,3 +114,6 @@ class View(tk.Tk):
     
     def remove_user(self, id, roomId):
         return self.controller.remove_user(id, roomId)
+    
+    def get_users(self, roomId):
+        return self.controller.get_users(roomId)

@@ -75,6 +75,9 @@ class Controller:
     def remove_user(self, id, roomId):
         return self.model.remove_user(id, roomId)
     
+    def get_users(self, roomId):
+        return self.model.get_users(roomId)
+    
 if __name__ == "__main__":
     controller = Controller()
     controller.main()

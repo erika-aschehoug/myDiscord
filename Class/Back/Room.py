@@ -25,7 +25,16 @@ class Room:
         self.db.execute(query, values)
 
     def get_users(self, roomId):
-        query = "SELECT * FROM permissions WHERE id_affiliate_canal = %s"
+        query = "SELECT users.id, users.user_first_name FROM users INNER JOIN permissions ON users.id = permissions.id_affiliate_user WHERE id_affiliate_canal = %s"
         values = (roomId,)
         return self.db.fetch(query, values)
     
+    def update_admin(self, id, roomId):
+        query = "UPDATE permissions SET admin = 1 WHERE id_affiliate_user = %s AND id_affiliate_canal = %s"
+        values = (id, roomId)
+        self.db.execute(query, values)
+    
+    def add_admin(self, id, roomId):
+        query = "INSERT INTO permissions (id_affiliate_user, id_affiliate_canal, admin) VALUES (%s, %s, %s)"
+        values = (id, roomId, 1)
+        self.db.execute(query, values)
