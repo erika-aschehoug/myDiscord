@@ -1,5 +1,7 @@
 from Class.Back.Db import Db
 import hashlib
+from Class.Back.Notification import Notification
+from Class.Back.Post import Post
 
 class User:
     def __init__(self):
@@ -16,6 +18,9 @@ class User:
         query = "INSERT INTO users (username, user_first_name, mail, passwd) VALUES (%s, %s, %s, %s)"  # The query to execute
         values = (name, firstName, email, hashed_password)  # The values to insert
         self.db.execute(query, values)
+
+        Notification().set_messages_counter(self.get_user(email)[0][0], 1, 0)
+
     
     def get_user(self, email):
         query = "SELECT * FROM users WHERE mail = %s"

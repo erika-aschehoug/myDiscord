@@ -92,3 +92,10 @@ class View(tk.Tk):
     
     def get_author(self, posts_user_id):
         return self.controller.get_author(posts_user_id)
+    
+    # Method for notification
+    def update_messages_counter(self, user_id, channel_id, messages_counter):
+        return self.controller.update_messages_counter(user_id, channel_id, messages_counter)
+    
+    def get_new_messages(self, user_id, channel_id):
+        return self.controller.get_new_messages(user_id, channel_id)

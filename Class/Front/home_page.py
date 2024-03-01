@@ -6,6 +6,7 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
         super().__init__(master)  # Calling the constructor of the parent class
 
         self.master.get_user_info()
+        self.public_notifications = self.master.get_new_messages(self.master.user_Id, 1)
         self.create_widget()
 
     def create_widget(self):

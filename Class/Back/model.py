@@ -1,6 +1,7 @@
 from Class.Back.Connection import Connection
 from Class.Back.User import User
 from Class.Back.Post import Post
+from Class.Back.Notification import Notification
 
 class Model:
     def __init__(self):
@@ -8,6 +9,7 @@ class Model:
         self.connection = Connection()
         self.user = User()
         self.post = Post()
+        self.notification = Notification()
 
     # This method is used to login the user
     def login(self, mail, password):
@@ -33,4 +35,11 @@ class Model:
     
     def get_author(self, posts_user_id):
         return self.post.get_author(posts_user_id)
+    
+    # Method for notification
+    def update_messages_counter(self, user_id, channel_id, messages_counter):
+        return self.notification.update_messages_counter(user_id, channel_id, messages_counter)
+    
+    def get_new_messages(self, user_id, channel_id):
+        return self.notification.get_new_messages(user_id, channel_id)
     
