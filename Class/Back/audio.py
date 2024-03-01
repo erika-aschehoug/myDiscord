@@ -5,9 +5,7 @@ from datetime import datetime       #to have the precise date and hour of record
 from pydub import AudioSegment
 from pydub.playback import play
 import mysql.connector
-# from base64 import b64encode
 
-#save audio
 class AudioRecorder:
     def __init__(self, output_folder):
         self.CHUNK = 1024        # Size of audio data chunks (1024 bytes)
@@ -56,42 +54,70 @@ class AudioRecorder:
             audio_blob = open(wave_output_filename, "rb").read()
 
             #insert blob data into db
+            record_time = datetime.now()
+            self.insert_audio_blob(record_time, audio_blob)
+
+        except Exception as e:
+            print(f"Error writing WAV file or inserting into the database:", e)
+
+    def connection_database(self):
+        try:
             conn = mysql.connector.connect(
                 host="localhost",
                 user="root",
                 password="root",
-                database="MydiscordDB"
+                database="db_discord"
             )
+            print("Connected to the database successfully.")
+            return conn
+        except mysql.connector.Error as e:
+            print(f"Error connecting to the database: {e}")
+            return None
 
-            cursor= conn.cursor()
-            insert_query = "INSERT INTO audio_records (record_time, audio_blob) VALUES (%s, %s)"
-            record_time = datetime.now()
-            cursor.execute(insert_query, (record_time, audio_blob))
-            conn.commit()
-            cursor.close()
-            conn.close()
-
-            print("Audio blob inserted into the database successfully.")
-
-        except Exception as e:
-            print(f"Error writing WAV file or inserting into the database:", e)
+    def insert_audio_blob(self, record_time, audio_blob):
+        conn = self.connection_database()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                insert_query = "INSERT INTO audio_record (record_time, audio_blob) VALUES (%s, %s)"
+                cursor.execute(insert_query, (record_time, audio_blob))
+                conn.commit()
+                cursor.close()
+                conn.close()
+                print("Audio blob inserted into the database successfully.")
+            except mysql.connector.Error as e:
+                print(f"Error inserting audio blob into the database: {e}")
 
 
     def close(self):
         self.audio.terminate()  # Terminate the PyAudio object
 
-#play audio 
+    def audio_player(self):
+        conn = self.connection_database()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                select_query = "SELECT audio_blob FROM audio_record ORDER BY record_time DESC LIMIT 1"
+                cursor.execute(select_query)
+                result = cursor.fetchone()
+                if result:
+                    audio_blob = result[0]      #list which contain the result of query sql
+                    audio_filename = "latest_audio.wav"
+                    with open(audio_filename, "wb") as audio_file:
+                        audio_file.write(audio_blob)
+                    audio = AudioSegment.from_file(audio_filename)  #read file      
+                    play(audio)                 
+                    print("Latest audio played successfully.")
+                else:
+                    print("No audio records found in the database.")
+                cursor.close()
+                conn.close()
+            except mysql.connector.Error as e:
+                print(f"Error retrieving latest audio from the database: {e}")
 
-    def audio_player (self,audio_file):
-        try:
-            audio = AudioSegment.from_file(audio_file)
-            play(audio)
-            print(f"Audio {audio_file} played successfully")
-        except Exception as e:
-            print(f"Error playing audio {audio_file}:", e)
 
 if __name__ == "__main__":
     recorder = AudioRecorder(output_folder="C:/Users/user/Desktop/LAPLATEFORME/myDiscord/audio")
-    # recorder.record_audio(record_seconds=10)
-    recorder.audio_player("C:/Users/user/Desktop/LAPLATEFORME/myDiscord/Class/Back/Voip/audio/2024-02-28_14-49-23.wav")
+    recorder.record_audio(record_seconds=10)
     recorder.close()
+
