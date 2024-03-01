@@ -4,6 +4,7 @@ from Class.Front.login_page import LoginPage
 from Class.Front.create_account_page import CreateAccountPage
 from Class.Front.home_page import HomePage
 from Class.Front.public_text_chat_page import PublicTextChatPage
+from Class.Front.private_text_chat_page import PrivateTextChatPage
 
 class View(tk.Tk):
     def __init__(self, controller):
@@ -59,6 +60,9 @@ class View(tk.Tk):
     
     def show_public_text_chat_page(self):
         return self.show_page(PublicTextChatPage)
+    
+    def show_private_text_chat_page(self):
+        return self.show_page(PrivateTextChatPage)
     
     def send_post(self, affiliate_chanel_id):
         return self.controller.send_post(affiliate_chanel_id)

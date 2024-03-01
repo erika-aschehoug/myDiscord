@@ -2,24 +2,24 @@ import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
 import pygame  # Importing the pygame module to work with sounds
 
-class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
+class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
     def __init__(self, master=None):  # Defining the constructor
         super().__init__(master)  # Calling the constructor of the parent class
         pygame.init()  # Initialize the pygame module
         
 
-        self.count = len(self.master.get_post(1)) # Getting the number of messages in the database
+        self.count = len(self.master.get_post(2)) # Getting the number of messages in the database
         self.all_users = self.master.get_all_users() # Getting all the users from the database
         self.create_widget() # Calling the create_widget method to create the widgets
         self.get_message()  # Calling the get_message method to display the messages
-        self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
+        self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 2, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
         self.update_message()  # Calling the update_message method to update the messages in the database
 
     def create_widget(self):
         frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
         frame.pack()
 
-        self.master.title("Salon Chat Publique")  # Setting the title of the window
+        self.master.title("Salon Chat Privé")  # Setting the title of the window
 
         # Creating and configuring the return button
         self.deconnection_button = tk.Button(master=frame, text="Quitter le chat", bg="cornflowerblue", fg="white", width=20, height=1, command=self.chat_deconnection)
@@ -34,20 +34,20 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
 
 
         #picture loading resizing and placing
-        self.message_chat_icon = tk.PhotoImage(file="Class/Front/Pictures/message_chat_icon.png")
-        self.message_chat_icon = self.message_chat_icon.subsample(22, 22) # Resizing the image
+        self.message_chat_icon = tk.PhotoImage(file="Class/Front/Pictures/private_message_chat_icon.png")
+        self.message_chat_icon = self.message_chat_icon.subsample(16, 16) # Resizing the image
         self.message_chat_icon_label = tk.Label(master=frame, image=self.message_chat_icon, bg="cornflowerblue")
         self.message_chat_icon_label.pack()
         self.message_chat_icon_label.place(x=50, y=200)
 
         # Creating and configuring the public text chat name
-        self.chat_name_label = tk.Label(master=frame, text="Salon Message Public", bg="RoyalBlue4", fg="white", width=20, height=1)
+        self.chat_name_label = tk.Label(master=frame, text="Salon Message Privé", bg="RoyalBlue4", fg="white", width=20, height=1)
         self.chat_name_label.pack()
         self.chat_name_label.config(font=("Agency FB", 20, "italic"), relief="groove")
         self.chat_name_label.place(x=110, y=210)
 
         # Creating and configuring a welcome message with the user's name under the chat name
-        self.welcome_message_label = tk.Label(master=frame, text=f"  Bienvenue sur le salon de discussion public {self.master.firstname} {self.master.username}  ", bg="SlateGray4", fg="white")
+        self.welcome_message_label = tk.Label(master=frame, text=f"  Bienvenue sur le salon de discussion privé {self.master.firstname} {self.master.username}  ", bg="SlateGray4", fg="white")
         self.welcome_message_label.pack()
         self.welcome_message_label.config(font=("Agency FB", 20, "italic"))
         self.welcome_message_label.place(x=50, y=250)
@@ -144,7 +144,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         
 
     def chat_deconnection(self):  # Method to return to the start page and get the user's info
-        self.master.get_message(f"{self.master.firstname} {self.master.username} s'est déconnecté du chat", 1, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), False, True) # Adding the disconnection message to the database
+        self.master.get_message(f"{self.master.firstname} {self.master.username} s'est déconnecté du chat", 2, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), False, True) # Adding the disconnection message to the database
         """ Must add method to get datetime into the database (table notification) and/or update it"""
         self.master.show_home_page()  # Calling the show_start_page method of the master attribute
     
@@ -168,7 +168,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         self.message_area.tag_configure("disconnection", foreground="red3", justify="center") # Configuring the disconnection message tag
     
     def get_message(self):  # Method to get the messages
-        self.posts = self.master.get_post(1)
+        self.posts = self.master.get_post(2)
         for post in self.posts:
             author = self.master.get_author(post[2])
             if post[5] == 1:  # If the message is a connection message
@@ -181,7 +181,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
                 self.display_message(post[1], "received", post[4], author)  
 
     def update_message(self):  # Method to update the messages
-        self.posts = self.master.get_post(1)
+        self.posts = self.master.get_post(2)
         if len(self.posts) > self.count:
             self.message_area.config(state="normal")  # activating the edition
             self.message_area.delete("1.0", "end")
@@ -195,7 +195,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         current_time = datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y")  # Getting the current time
         self.message_entry.delete("1.0", "end") # Clearing the message entry
         if message:  # If the message is not empty
-            self.master.get_message(message, 1, current_time, False, False) # Adding the message to the database
+            self.master.get_message(message, 2, current_time, False, False) # Adding the message to the database
             self.play_received_sound()
         self.play_sending_sound()
 
@@ -209,5 +209,5 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
 
 if __name__ == "__main__":  # If the script is run directly
     root = tk.Tk()  # Create an instance of the Tk class    
-    app = PublicTextChatPage(master=root)  # Create an instance of the StartPage class
+    app = PrivateTextChatPage(master=root)  # Create an instance of the StartPage class
     app.mainloop()  # Start the main event loop
