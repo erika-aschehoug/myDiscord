@@ -7,7 +7,8 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
         super().__init__(master)  # Calling the constructor of the parent class
         pygame.init()  # Initialize the pygame module
         
-
+        self.add_admin = False
+        self.user = self.master.get_all_users()
         self.count = len(self.master.get_post(2)) # Getting the number of messages in the database
         self.all_users = self.master.get_all_users() # Getting all the users from the database
         self.create_widget() # Calling the create_widget method to create the widgets
@@ -21,6 +22,45 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
 
         self.master.title("Salon Chat Privé")  # Setting the title of the window
 
+        # Creating and configuring a members management label
+        self.members_management_label = tk.Label(master=frame, text="Gestion des membres", bg="light slate gray", fg="black", width=20, height=1)
+        self.members_management_label.pack()
+        self.members_management_label.config(font=("Agency FB", 20, "italic"))
+        self.members_management_label.place(x=60, y=20)
+
+
+        self.members_list = tk.Label(master=frame, bg="light slate gray", fg="black", width=57, height=2)
+        self.members_list.pack()
+        self.members_list.config(font=("Agency FB", 15))
+        self.members_list.place(x=40, y=65)
+
+        #inserting users list séparate with / into members label
+        user_list = []
+        for user in self.all_users:
+            user_list.append(user[2])
+        self.members_list.config(text=f"Membres\n {" / ".join(user_list)}")
+
+        # Creating and configuring add and delete members buttons and a fiel to enter the name of the member to add or delete
+        self.add_member_button = tk.Button(master=frame, text="Ajouter un membre", bg="light slate gray", fg="darkgreen", width=20, height=1)
+        self.add_member_button.pack()
+        self.add_member_button.config(font=("Agency FB", 15), relief="groove")
+        self.add_member_button.place(x=40, y=150)
+
+        self.delete_member_button = tk.Button(master=frame, text="Supprimer un membre", bg="light slate gray", fg="darkred", width=20, height=1)
+        self.delete_member_button.pack()
+        self.delete_member_button.config(font=("Agency FB", 15), relief="groove")
+        self.delete_member_button.place(x=200, y=150)
+        
+        self.member_entry = tk.Entry(master=frame, width=31, font=("Agency FB", 15))
+        self.member_entry.pack()
+        self.member_entry.place(x=40, y=120)
+
+        # checkbutto to activate or desactivate add admin members
+        self.add_admin = tk.Checkbutton(master=frame, text="Ajouter en tant qu'admin", bg="light slate gray", fg="black", width=20, height=1, variable=self.add_admin)
+        self.add_admin.pack()
+        self.add_admin.config(font=("Agency FB", 15))
+        self.add_admin.place(x=277, y=115)
+        
         # Creating and configuring the return button
         self.deconnection_button = tk.Button(master=frame, text="Quitter le chat", bg="cornflowerblue", fg="white", width=20, height=1, command=self.chat_deconnection)
         self.deconnection_button.pack()
@@ -31,7 +71,6 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
         self.chat_name_label_frame = tk.Frame(master=frame, bg="cornflowerblue", width=290, height=60, relief="groove")
         self.chat_name_label_frame.pack()
         self.chat_name_label_frame.place(x=50, y=195)
-
 
         #picture loading resizing and placing
         self.message_chat_icon = tk.PhotoImage(file="Class/Front/Pictures/private_message_chat_icon.png")
@@ -179,7 +218,7 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
                 self.display_message(post[1], "sent", post[4], author) 
             elif self.master.user_Id != post[2]: # If the user is not the author of the message
                 self.display_message(post[1], "received", post[4], author)  
-
+           
     def update_message(self):  # Method to update the messages
         self.posts = self.master.get_post(2)
         if len(self.posts) > self.count:
