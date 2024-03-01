@@ -12,7 +12,7 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
         self.admin_list = [] # Creating an empty list to store the admin IDs
         for admin in self.admins:  # Looping through the admins
             self.admin_list.append(admin[0])
-        self.add_admin = False
+        self.add_admin = tk.IntVar()  # Creating an IntVar to store the value of the add admin checkbutton
         self.users = self.master.get_users(2)
         self.count = len(self.master.get_post(2)) # Getting the number of messages in the database
         self.all_users = self.master.get_all_users() # Getting all the users from the database
@@ -62,7 +62,7 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
         self.member_entry.place(x=40, y=120)
 
         # checkbutto to activate or desactivate add admin members
-        self.add_admin_button = tk.Checkbutton(master=frame, text="Ajouter en tant qu'admin", bg="light slate gray", fg="black", width=20, height=1, variable=self.add_admin, onvalue=1, offvalue=0)
+        self.add_admin_button = tk.Checkbutton(master=frame, text="Ajouter en tant qu'admin", bg="light slate gray", fg="black", width=20, height=1, variable=self.add_admin)
         self.add_admin_button.pack()
         self.add_admin_button.config(font=("Agency FB", 15))
         self.add_admin_button.place(x=277, y=115)
@@ -253,38 +253,36 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
         self.received_sound.play()
 
     def add_user(self):  # Method to add a user to the private chat
+        print(self.add_admin.get())
         if self.master.user_Id in self.admin_list:
             user = self.member_entry.get().strip()
             user_id = None
             for u in self.all_users:
                 if user == u[1] or user == u[2] or user == u[3]:
                     user_id = u[0]
-                    print(user_id)
-                    print(self.add_admin)
-                    print(self.users)
                     break
-            if user_id and self.add_admin == 1 and user_id in self.users:
+            if user_id and self.add_admin.get() == 1 and user_id in self.users:
                 self.master.update_add_admin(user_id, 2)
                 self.users = self.master.get_users(2)
                 user_list = []
                 for user in self.users:
-                    user_list.append(user[1])
+                    user_list.append(user[2])
                 self.members_list.config(text=f"Membres\n {" / ".join(user_list)}")
                 self.member_entry.delete(0, "end")
-            elif user_id and self.add_admin == 1:
+            elif user_id and self.add_admin.get() == 1:
                 self.master.add_admin(user_id, 2)
                 self.users = self.master.get_users(2)
                 user_list = []
                 for user in self.users:
-                    user_list.append(user[1])
+                    user_list.append(user[2])
                 self.members_list.config(text=f"Membres\n {" / ".join(user_list)}")
                 self.member_entry.delete(0, "end")
-            elif user_id and self.add_admin == 0:
+            elif user_id and self.add_admin.get() == 0:
                 self.master.add_user(user_id, 2)
                 self.users = self.master.get_users(2)
                 user_list = []
                 for user in self.users:
-                    user_list.append(user[1])
+                    user_list.append(user[2])
                 self.members_list.config(text=f"Membres\n {" / ".join(user_list)}")
                 self.member_entry.delete(0, "end")
             else:
@@ -307,7 +305,7 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
                 self.users = self.master.get_users(2)
                 user_list = []
                 for user in self.users:
-                    user_list.append(user[1])
+                    user_list.append(user[2])
                 self.members_list.config(text=f"Membres\n {" / ".join(user_list)}")
                 self.member_entry.delete(0, "end")
             else:
