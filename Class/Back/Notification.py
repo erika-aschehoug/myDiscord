@@ -26,6 +26,6 @@ class Notification:
 
     def get_notifications(self, user_id, cnannel_id):
         counter_id = self.set_messages_counter(user_id, cnannel_id)
-        query = "SELECT * FROM posts WHERE id > %s AND id_affiliate_channel = %s AND user_id != %s AND disconnection = 0 AND connection = 0"
+        query = "SELECT id FROM posts WHERE id > %s AND id_affiliate_channel = %s AND user_id != %s AND disconnection = 0 AND connection = 0"
         value = (counter_id, user_id)
         return self.db.fetch(query, value)
