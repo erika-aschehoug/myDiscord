@@ -76,6 +76,8 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
         self.private_text_chat_button.pack()
         self.private_text_chat_button.config(font=("Agency FB", 20, "italic"), relief="groove")
         self.private_text_chat_button.place(x=110, y=575)
+        # Adding the logic to show the private text chat page when the private text chat button is clicked
+        self.private_text_chat_button["command"] = self.master.show_private_text_chat_page
 
         # Creating and configuring the deconnection button
         self.deconnection_button = tk.Button(master=frame, text="Déconnexion", bg="cornflowerblue", fg="white", width=20, height=1, command=self.deconnection)
