@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from Class.Front.start_page import StartPage
 from Class.Front.login_page import LoginPage
 from Class.Front.create_account_page import CreateAccountPage
@@ -58,7 +59,13 @@ class View(tk.Tk):
         return self.show_page(HomePage)
     
     def show_public_text_chat_page(self):
-        return self.show_page(PublicTextChatPage)
+            return self.show_page(PublicTextChatPage)
+        
+    # def show_private_text_chat_page(self):
+    #     if self.controller.permission(self.user_Id, 2):
+    #         return self.show_page(PrivateTextChatPage)
+    #     else:
+    #         return messagebox.showerror("Error", "You don't have the permission to access this channel")
     
     def send_post(self, affiliate_chanel_id):
         return self.controller.send_post(affiliate_chanel_id)
@@ -99,3 +106,10 @@ class View(tk.Tk):
     
     def get_new_messages(self, user_id, channel_id):
         return self.controller.get_new_messages(user_id, channel_id)
+    
+    # Method for room management
+    def add_user(self, id, roomId):
+        return self.controller.add_user(id, roomId)
+    
+    def remove_user(self, id, roomId):
+        return self.controller.remove_user(id, roomId)

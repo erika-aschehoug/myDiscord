@@ -65,6 +65,16 @@ class Controller:
     def get_new_messages(self, user_id, channel_id):    
         return self.model.get_new_messages(user_id, channel_id)
     
+    # Method for room management
+    def permission(self, user_id, roomId):
+        return self.model.permission(user_id, roomId)
+    
+    def add_user(self, id, roomId):   
+        return self.model.add_user(id, roomId)
+    
+    def remove_user(self, id, roomId):
+        return self.model.remove_user(id, roomId)
+    
 if __name__ == "__main__":
     controller = Controller()
     controller.main()

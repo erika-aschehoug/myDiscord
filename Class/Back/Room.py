@@ -5,19 +5,18 @@ class Room:
     def __init__(self):
         self.db = Db(host="localhost", user="root", password="root", database="db_discord")
 
-    def persmission(self, roomId):
-        id = Session.get_current_user
+    def permission(self,user_id, roomId):
         query = "SELECT * FROM permissions WHERE id_affiliate_user = %s"
-        values = (id,)
+        values = (user_id,)
         permissions = self.db.fetch(query, values)
-        for permission in permissions:
-            if permission["id_affiliate_canal"] == roomId:
-                return True
+        print (permissions)
+        if permissions[0][2] == roomId:
+            return True
         return False
     
-    def add_user(self, id, roomId, admin = False):
+    def add_user(self, id, roomId):
         query = "INSERT INTO permissions (id_affiliate_user, id_affiliate_canal, admin) VALUES (%s, %s, %s)"
-        values = (id, roomId, admin)
+        values = (id, roomId, 0)
         self.db.execute(query, values)
 
     def remove_user(self, id, roomId):
@@ -29,12 +28,4 @@ class Room:
         query = "SELECT * FROM permissions WHERE id_affiliate_canal = %s"
         values = (roomId,)
         return self.db.fetch(query, values)
-    
-    def get_chat_rooms(self):
-        query = "SELECT * FROM chat_room WERE canal_type = text"
-        return self.db.fetch(query)
-    
-    def get_voice_rooms(self):
-        query = "SELECT * FROM chat_room WERE canal_type = voice"
-        return self.db.fetch(query)
     
