@@ -7,7 +7,7 @@ class PublicTextChatPage(tk.Frame):  # Creating a class StartPage which inherits
         super().__init__(master)  # Calling the constructor of the parent class
         pygame.init()  # Initialize the pygame module
         
-        self.protocol("WM_DELETE_WINDOW", self.chat_deconnection)  # Calling the chat_deconnection method when the window is closed
+
         self.count = len(self.master.get_post(1)) # Getting the number of messages in the database
         self.all_users = self.master.get_all_users() # Getting all the users from the database
         self.create_widget() # Calling the create_widget method to create the widgets
