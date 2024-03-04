@@ -16,7 +16,6 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
         self.users = self.master.get_users(2)
         self.count = len(self.master.get_post(2)) # Getting the number of messages in the database
         self.all_users = self.master.get_all_users() # Getting all the users from the database
-        print(self.all_users)
         self.create_widget() # Calling the create_widget method to create the widgets
         self.get_message()  # Calling the get_message method to display the messages
         self.master.get_message(f"{self.master.firstname} {self.master.username} s'est connecté au chat", 2, datetime.datetime.now().strftime("%H:%M:%S  %d/%m/%Y"), True, False) # Adding the connection message to the database
@@ -253,7 +252,6 @@ class PrivateTextChatPage(tk.Frame):  # Creating a class StartPage which inherit
         self.received_sound.play()
 
     def add_user(self):  # Method to add a user to the private chat
-        print(self.add_admin.get())
         if self.master.user_Id in self.admin_list:
             user = self.member_entry.get().strip()
             user_id = None
