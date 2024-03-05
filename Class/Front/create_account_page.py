@@ -1,54 +1,61 @@
 import tkinter as tk  # Importing the tkinter module for GUI
 import datetime  # Importing the datetime module to work with dates and times
 
-class CreatAccountPage(tk.Tk):  # Creating a class StartPage which inherits from tk.Tk
-    def __init__(self):  # Defining the constructor
-        super().__init__()  # Calling the constructor of the parent class
-        self.title("Création de compte")  # Setting the title of the window
-        self.geometry("750x900")  # Setting the size of the window
-        self.resizable(width=False, height=False)  # Making the window non-resizable
-        self.configure(bg="darkblue")  # Setting the background color of the window
+class CreateAccountPage(tk.Frame):  # Creating a class StartPage which inherits from tk.Tk
+    def __init__(self, master=None):  # Defining the constructor
+        super().__init__(master)  # Calling the constructor of the parent class
+        self.create_widget()
+
+    def create_widget(self):
+        frame = tk.Frame(master=self, width=750, height=900, bg="darkblue")
+        frame.pack()
+
+        self.master.title("Création de compte")  # Setting the title of the window
+        # self.master.geometry("750x900")  # Setting the size of the window
+        # self.master.resizable(width=False, height=False)  # Making the window non-resizable
+        # self.master.configure(bg="darkblue")  # Setting the background color of the window
+        
 
         # Creating and configuring the time label
-        self.time_label = tk.Label(self, bg="darkblue", fg="white")
+        self.time_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.time_label.pack()
         self.time_label.config(font=("Agency FB", 40))
         self.time_label.place(x=645, y=20)
 
         # Creating and configuring the date label
-        self.date_label = tk.Label(self, bg="darkblue", fg="white")
+        self.date_label = tk.Label(master=frame, bg="darkblue", fg="white")
         self.date_label.pack()
         self.date_label.config(font=("Agency FB", 25, "italic"))
-        self.date_label.place(x=605, y=80)
+        self.date_label.place(x=600, y=80)
 
         self.update_time()  # Calling the update_time method to display the current time and date
         
         # Create a frame for the login fields
-        self.login_frame = tk.Frame(self, bg="cornflowerblue", width=300, height=200)
+        self.login_frame = tk.Frame(master=frame, bg="cornflowerblue", width=300, height=200)
         self.login_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         # Create and place the name label and entry field
         self.name_label = tk.Label(self.login_frame, text="Nom :", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.name_label.grid(row=0, column=0, sticky='w')
-        self.name_entry = tk.Entry(self.login_frame, font=("Agency FB", 20, "italic"))
+        self.name_entry = tk.Entry(self.login_frame, font=("Agency FB", 20))
         self.name_entry.grid(row=0, column=1, sticky='ew', padx=(0, 25)) 
 
         # Create and place the surname label and entry field
         self.surname_label = tk.Label(self.login_frame, text="Prénom :", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.surname_label.grid(row=1, column=0, sticky='w')
-        self.surname_entry = tk.Entry(self.login_frame, font=("Agency FB", 20, "italic"))
+        self.surname_entry = tk.Entry(self.login_frame, font=("Agency FB", 20))
         self.surname_entry.grid(row=1, column=1, sticky='ew', padx=(0, 25))  
 
         # Create and place the email label and entry field
         self.email_label = tk.Label(self.login_frame, text="Identifiant (mail) : ", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.email_label.grid(row=2, column=0, sticky='w')
-        self.email_entry = tk.Entry(self.login_frame, font=("Agency FB", 20, "italic"))
+        self.email_entry = tk.Entry(self.login_frame, font=("Agency FB", 20))
         self.email_entry.grid(row=2, column=1, sticky='ew', padx=(0, 25))  
 
         # Create and place the password label and entry field
         self.password_label = tk.Label(self.login_frame, text="Mot de passe :", bg="cornflowerblue", fg="white", font=("Agency FB", 25, "italic"))
         self.password_label.grid(row=3, column=0, sticky='w')
-        self.password_entry = tk.Entry(self.login_frame, show="*", font=("Agency FB", 20, "italic"))
+        self.password_entry = tk.Entry(self.login_frame, show="*", font=("Agency FB", 20))
         self.password_entry.grid(row=3, column=1, sticky='ew', padx=(0, 25))
 
         # Create and place the show password button
@@ -65,17 +72,27 @@ class CreatAccountPage(tk.Tk):  # Creating a class StartPage which inherits from
 
     def create_account(self):
         # Code to create the account
-        pass
+        name = self.name_entry.get()
+        surname = self.surname_entry.get()
+        email = self.email_entry.get()
+        password = self.password_entry.get()
+        if name and surname and email and password:
+            self.master.get_create_account_variables(name, surname, email, password)
+            self.go_home()
+        else:
+            print("Veuillez remplir tous les champs")
+            
 
     def go_home(self):
         # Code to go back to the home page
-        pass
+        self.master.show_start_page()
 
     def update_time(self):  # Method to update the time and date
         current_time = datetime.datetime.now().strftime("%H:%M")  # Getting the current time
         current_date = datetime.datetime.now().strftime("%d/%m/%Y")  # Getting the current date
         self.time_label.config(text=current_time)  # Updating the time label
         self.date_label.config(text=current_date)  # Updating the date label
+        self.after(1000, self.update_time)  # Calling the update_time method after 1 second
         self.toggle_colon()  # Calling the toggle_colon method to blink the colon in the time
     
     def toggle_password(self):
@@ -96,5 +113,5 @@ class CreatAccountPage(tk.Tk):  # Creating a class StartPage which inherits from
         self.after(1000, self.toggle_colon)  # Calling the toggle_colon method after 1 second
 
 if __name__ == "__main__":  # If the script is run directly
-    app = CreatAccountPage()  # Create an instance of the StartPage class
+    app = CreateAccountPage()  # Create an instance of the StartPage class
     app.mainloop()  # Start the main event loop
