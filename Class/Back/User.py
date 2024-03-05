@@ -1,7 +1,6 @@
 from Class.Back.Db import Db
 import hashlib
 from Class.Back.Notification import Notification
-from Class.Back.Post import Post
 
 class User:
     def __init__(self):

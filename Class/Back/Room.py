@@ -1,5 +1,4 @@
 from Class.Back.Db import Db
-from Class.Back.Session import Session
 
 class Room:
     def __init__(self):

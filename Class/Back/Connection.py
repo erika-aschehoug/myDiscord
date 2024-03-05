@@ -1,6 +1,5 @@
 from Class.Back.Db import Db
 from Class.Back.User import User
-from Class.Back.Session import Session
 import hashlib
 
 class Connection(User):
