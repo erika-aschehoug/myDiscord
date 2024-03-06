@@ -14,9 +14,6 @@ class HomePage(tk.Frame):  # Creating a class StartPage which inherits from tk.T
         frame.pack()
 
         self.master.title("Home")  # Setting the title of the window
-        # self.master.geometry("750x900")  # Setting the size of the window
-        # self.master.resizable(width=False, height=False)  # Making the window non-resizable
-        # self.master.configure(bg="darkblue")  # Setting the background color of the window
 
         #picture loading and resizing
         self.private_message_chat_icon = tk.PhotoImage(file="Class/Front/Pictures/private_message_chat_icon.png")
